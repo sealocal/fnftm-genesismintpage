@@ -248,7 +248,8 @@ function App() {
                 className="d-inline-block align-top"                           
               />{' '}&nbsp;&nbsp;&nbsp;
             </StyledLink> 
-            {/* <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
+            {/* 
+            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
               <img
                 alt=""
                 src="/config/images/opensea.png"              
@@ -257,6 +258,8 @@ function App() {
               />{' '}&nbsp;&nbsp;&nbsp;
             </StyledLink> 
             */} 
+
+            {/*
             <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
               onClick={(e) => {
                 e.preventDefault();
@@ -265,14 +268,16 @@ function App() {
               } }
             >
               Connect Wallet
-            </Button>          
+            </Button>     
+            */} 
+
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      <Container fluid style={{ backgroundColor: "#000000" }}>
-        <Row style={{ paddingTop: "50px", paddingBottom: "100px" }}>
+      <Container fluid style={{ backgroundImage: "linear-gradient(#000000 40%, #A11692, #BD2164)" }}>
+        <Row style={{ paddingTop: "50px" }}>
           <Col md={1}></Col>
           <Col md={6}>
             <Row style={{ color: "#ffffff", fontSize:"3em"}}>
@@ -283,13 +288,13 @@ function App() {
             </Row>
             <Row style={{ paddingTop: "20px" }}>          
               <Row style={{ color: "#FAC921", fontSize:"2em"}}>
-                <Countdown date={countdownDate} renderer={countdownRenderer} />
+                <Countdown date={countdownDate} renderer={countdownRenderer} />                    
               </Row>
-              <Row style={{ color: "#FAC921", fontSize:"0.75em"}}>
-                <Col xs={2}>Days</Col>
-                <Col xs={2}>Hours</Col>
-                <Col xs={2}>Minutes</Col>
-                <Col xs={2}>Seconds</Col>                
+              <Row style={{ color: "#FAC921", fontSize:"0.75em", textAlign:"center"}}>
+                <Col xs={3} md={2}>Days</Col>
+                <Col xs={3} md={2}>Hours</Col>
+                <Col xs={3} md={2}>Minutes</Col>
+                <Col xs={3} md={2}>Seconds</Col>                
               </Row>
               <Row style={{ paddingTop: "20px", color: "#ffffff" }}>
                 <Col>IMMEDIATE UTILITY & PERKS</Col>                
@@ -321,15 +326,15 @@ function App() {
             </Row>
             <Row style={{ paddingTop: "20px", color: "#ffffff" }}>
               <Col xs={4}>ALLOW LIST</Col>
-              <Col>Mon, March 21 at 12pm ET</Col>
+              <Col>Mon, March 28 at 12pm ET</Col>
             </Row>
             <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
               <Col xs={4}>PRESALE</Col>
-              <Col>Wed, March 23 at 12pm ET</Col>
+              <Col>Wed, March 30 at 12pm ET</Col>
             </Row>
             <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
               <Col xs={4}>PUBLIC</Col>
-              <Col>Fri, March 25 at 12pm ET</Col>
+              <Col>Fri, April 1 at 12pm ET</Col>
             </Row>
             <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
               <Col xs={4}>PRICE</Col>
@@ -345,20 +350,20 @@ function App() {
               <Col><img fluid alt="Future NFT Mints - Genesis NFT Card" src="/config/images/fnftm-card.png" width="80%" className="d-inline-block align-top"/></Col>              
             </Row> 
 
-            <Row style={{ marginTop:"50px", backgroundColor: "#212529", borderRadius: "5px" }}>
+            <Row style={{ marginTop:"50px", backgroundColor: "#212529", borderRadius: "5px", marginLeft:"1px", marginRight:"1px" }}>
               <Col>
                 <Row style={{ paddingTop:"25px" }}>
-                  <Col style={{ textAlign: "center", color: "#ffffff" }}>Mint a Genesis NFT</Col>
+                  <Col style={{ textAlign: "center", color: "#ffffff", fontSize:"1.5em" }}>Mint a Genesis NFT</Col>
                 </Row>
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List opens on Mar 21 @ 12pm ET</Col>
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
                 </Row> 
-
-                <Row style={{ paddingTop:"25px" }}>
+                {/*
+                <Row>
                   <Col>
-                    <ProgressBar now={data.totalSupply} />
+                    <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
                   </Col>                  
                 </Row>
 
@@ -380,6 +385,9 @@ function App() {
                     </Button>   
                   </Col>
                 </Row>      
+                */}
+
+                <Row  style={{ paddingBottom:"100px" }}></Row>                  
               
               </Col> 
 
@@ -389,23 +397,23 @@ function App() {
           <Col md={1}></Col>          
         </Row>
         
-        <Row style={{ paddingTop: "50px" }}>
+        <Row style={{ paddingTop: "75px" }}>
 
-          <Col xs={3}></Col>            
-          <Col xs={6} style={{ textAlign:"center", fontSize: "2em", color: " #ffffff" }}>
+          <Col md={3}></Col>            
+          <Col md={6} xs={12} style={{ textAlign:"center", fontSize: "2em", color: " #ffffff" }}>
             Frequently Asked Questions
           </Col>
-          <Col xs={3}></Col>            
+          <Col md={3}></Col>            
         </Row>
 
         <Row style={{ paddingTop: "20px", paddingBottom: "100px" }}>
 
-          <Col xs={3}></Col>            
-          <Col xs={6} style={{ textAlign:"center" }}>
+          <Col md={3}></Col>            
+          <Col md={6} xs={12} style={{ textAlign:"left" }}>
             <Accordion alwaysOpen>
-              <Accordion.Item eventKey="0" style={{ backgroundColor: "#212529"}}>
-                <Accordion.Header style={{ color: "#212529"}}>Accordion Item #1</Accordion.Header>
-                <Accordion.Body style={{ color: "#ffffff"}}>
+              <Accordion.Item eventKey="0" style={{marginBottom:"10px"}}>
+                <Accordion.Header>Accordion Item #1</Accordion.Header>
+                <Accordion.Body style={{color:"#fff"}}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                   veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -415,9 +423,33 @@ function App() {
                   est laborum.
                 </Accordion.Body>
               </Accordion.Item>
-              <Accordion.Item eventKey="1">
+              <Accordion.Item eventKey="1" style={{marginBottom:"10px"}}>
                 <Accordion.Header>Accordion Item #2</Accordion.Header>
-                <Accordion.Body>
+                <Accordion.Body style={{color:"#fff"}}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                  est laborum.
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="2" style={{marginBottom:"10px"}}>
+                <Accordion.Header>Accordion Item #3</Accordion.Header>
+                <Accordion.Body style={{color:"#fff"}}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                  est laborum.
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="3" style={{marginBottom:"10px"}}>
+                <Accordion.Header>Accordion Item #4</Accordion.Header>
+                <Accordion.Body style={{color:"#fff"}}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                   veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -429,7 +461,7 @@ function App() {
               </Accordion.Item>
             </Accordion>
           </Col>
-          <Col xs={3}></Col>            
+          <Col md={3}></Col>            
         </Row>
         
       </Container>
