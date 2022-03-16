@@ -131,13 +131,13 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
-  const countdownDate = "2022-03-21T12:00:00.000-04:00";
+  const countdownDate = "2022-03-28T18:00:00.000-04:00";
   const countdownRenderer = ({ days, hours, minutes, seconds }) => {
     return <>
-      <Col xs={2}>{zeroPad(days)}</Col>
-      <Col xs={2}>{zeroPad(hours)}</Col>
-      <Col xs={2}>{zeroPad(minutes)}</Col>
-      <Col xs={2}>{zeroPad(seconds)}</Col>
+      <Col xs={3} md={2}>{zeroPad(days)}</Col>
+      <Col xs={3} md={2}>{zeroPad(hours)}</Col>
+      <Col xs={3} md={2}>{zeroPad(minutes)}</Col>
+      <Col xs={3} md={2}>{zeroPad(seconds)}</Col>
     </>;
   };
 
@@ -260,15 +260,17 @@ function App() {
             */} 
 
             {/*
-            <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(connect());
-                getData();
-              } }
-            >
-              Connect Wallet
-            </Button>     
+            { (blockchain.account !== "" && blockchain.smartContract !== null) ?
+              <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(connect());
+                  getData();
+                } }
+              >
+                Connect Wallet
+              </Button> : null
+            }     
             */} 
 
             </Nav>
@@ -287,7 +289,7 @@ function App() {
               <Col>Direct access to the most in-depth, transparent NFT analysis to guide your buying decisions.</Col>
             </Row>
             <Row style={{ paddingTop: "20px" }}>          
-              <Row style={{ color: "#FAC921", fontSize:"2em"}}>
+              <Row style={{ color: "#FAC921", fontSize:"4em", textAlign:"center"}}>
                 <Countdown date={countdownDate} renderer={countdownRenderer} />                    
               </Row>
               <Row style={{ color: "#FAC921", fontSize:"0.75em", textAlign:"center"}}>
@@ -360,7 +362,8 @@ function App() {
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
                 </Row> 
-                {/*
+
+                {/*}
                 <Row>
                   <Col>
                     <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
@@ -373,21 +376,122 @@ function App() {
                 </Row>
 
                 <Row  style={{ paddingBottom:"25px" }}>
+                  
                   <Col xs={12} style={{ paddingTop:"25px", textAlign: "center" }}>
-                    <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(connect());
-                        getData();
-                      } }
-                    >
-                      Connect Wallet
-                    </Button>   
-                  </Col>
-                </Row>      
-                */}
+                    { (blockchain.account !== "" && blockchain.smartContract !== null) ? null :
+                      null
+                    }
+                    {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+                      <>
+                        <s.TextTitle
+                          style={{ textAlign: "center", color: "var(--accent-text)" }}
+                        >
+                          The sale has ended.
+                        </s.TextTitle>
+                        <s.TextDescription
+                          style={{ textAlign: "center", color: "var(--accent-text)" }}
+                        >
+                          You can still find {CONFIG.NFT_NAME} on
+                        </s.TextDescription>
+                        <s.SpacerSmall />
+                        <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                          {CONFIG.MARKETPLACE}
+                        </StyledLink>
+                      </>
+                    ) : (
+                      <>
+                        
+                        {blockchain.account === "" ||
+                          blockchain.smartContract === null ? (
+                          <s.Container ai={"center"} jc={"center"}>                                                        
+                            {blockchain.errorMsg !== "" ? (
+                              <>
+                                <s.TextDescription
+                                  style={{
+                                    textAlign: "center",
+                                    color: "#ffffff",
+                                  }}
+                                >
+                                  {blockchain.errorMsg}
+                                </s.TextDescription>
+                              </>
+                            ) : null}
+                            <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
+                        onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(connect());
+                                getData();
+                              } }
+                            >
+                              Connect Wallet
+                            </Button>
+                            
+                          </s.Container>
+                        ) : (
+                          <>
+                            <Row
+                              style={{                                
+                                color: "#ffffff",
+                              }}
+                            >
+                              <Col style={{textAlign: "center" }}>{feedback}</Col>
+                              
+                            </Row>
+                            <s.SpacerMedium />
+                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                              <StyledRoundButton
+                                style={{ lineHeight: 0.4 }}
+                                disabled={claimingNft ? 1 : 0}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  decrementMintAmount();
+                                } }
+                              >
+                                -
+                              </StyledRoundButton>
+                              <s.SpacerMedium />
+                              <s.TextDescription
+                                style={{
+                                  textAlign: "center",
+                                  color: "var(--accent-text)",
+                                }}
+                              >
+                                {mintAmount}
+                              </s.TextDescription>
+                              <s.SpacerMedium />
+                              <StyledRoundButton
+                                disabled={claimingNft ? 1 : 0}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  incrementMintAmount();
+                                } }
+                              >
+                                +
+                              </StyledRoundButton>
+                            </s.Container>
+                            <s.SpacerSmall />
+                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                            <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
+                                disabled={claimingNft ? 1 : 0}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  claimNFTs();
+                                  getData();
+                                } }
+                              >
+                                {claimingNft ? "BUSY" : "BUY"}
+                              </Button>
+                            </s.Container>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </Col> 
+                </Row> 
+                */}   
 
-                <Row  style={{ paddingBottom:"100px" }}></Row>                  
+
+                <Row  style={{ paddingBottom:"50px" }}></Row>
               
               </Col> 
 
