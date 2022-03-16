@@ -12,6 +12,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Accordion from "react-bootstrap/Accordion";
+import Countdown, { zeroPad } from 'react-countdown';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const truncate = (input, len) =>
@@ -128,6 +130,16 @@ function App() {
     MARKETPLACE_LINK: "",
     SHOW_BACKGROUND: false,
   });
+
+  const countdownDate = "2022-03-21T12:00:00.000-04:00";
+  const countdownRenderer = ({ days, hours, minutes, seconds }) => {
+    return <>
+      <Col xs={2}>{zeroPad(days)}</Col>
+      <Col xs={2}>{zeroPad(hours)}</Col>
+      <Col xs={2}>{zeroPad(minutes)}</Col>
+      <Col xs={2}>{zeroPad(seconds)}</Col>
+    </>;
+  };
 
   const claimNFTs = () => {
     let cost = CONFIG.WEI_COST;
@@ -275,11 +287,8 @@ function App() {
               <Col>Direct access to the most in-depth, transparent NFT analysis to guide your buying decisions.</Col>
             </Row>
             <Row style={{ paddingTop: "20px" }}>          
-              <Row style={{ color: "#FAC921", fontSize:"4em", textAlign:"center"}}>
-                <Col xs={3} md={2}>00</Col>
-                <Col xs={3} md={2}>00</Col>
-                <Col xs={3} md={2}>00</Col>
-                <Col xs={3} md={2}>00</Col>                
+              <Row style={{ color: "#FAC921", fontSize:"2em"}}>
+                <Countdown date={countdownDate} renderer={countdownRenderer} />                    
               </Row>
               <Row style={{ color: "#FAC921", fontSize:"0.75em", textAlign:"center"}}>
                 <Col xs={3} md={2}>Days</Col>
