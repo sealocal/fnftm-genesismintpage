@@ -321,8 +321,8 @@ function App() {
           </Col>
           <Col md={4}>
             <Row style={{ paddingTop:"50px", textAlign: "center" }}>
-              <Col><img fluid alt="Future NFT Mints - Genesis NFT Card" src="/config/images/fnftm-card.png" width="80%" className="d-inline-block align-top"/></Col>              
-            </Row> 
+              <Col><img fluid="true" alt="Future NFT Mints - Genesis NFT Card" src="/config/images/fnftm-card.png" width="80%" className="d-inline-block align-top"/></Col>
+            </Row>
 
             <Row style={{ marginTop:"50px", backgroundColor: "#212529", borderRadius: "5px", marginLeft:"1px", marginRight:"1px" }}>
               <Col>
