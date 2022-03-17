@@ -279,7 +279,7 @@ function App() {
         </Container>
       </Navbar>
 
-      <Container fluid style={{ backgroundImage: "linear-gradient(#000000 40%, #A11692, #BD2164)" }}>
+      <Container fluid style={{ backgroundImage: "linear-gradient(#000000 10%, #A11692, #BD2164)" }}>
         <Row style={{ paddingTop: "50px" }}>
           <Col md={1}></Col>
           <Col md={6}>
