@@ -132,7 +132,7 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
-  const countdownDate = "2022-03-28T18:00:00.000-04:00";
+  const countdownDate = "2022-03-28T18:00:00.000+02:00";
   const countdownRenderer = ({ days, hours, minutes, seconds }) => {
     return <>
       <Col xs={3} md={2}>{zeroPad(days)}</Col>
@@ -304,7 +304,7 @@ function App() {
               </Row>
               <Row style={{ paddingTop:"5px" }}>
                 <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
-                <Col style={{ color: "#ffffff" }}>Daily Future NFT Mints Newsletter ($550/year value)</Col>
+                <Col style={{ color: "#ffffff" }}><StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Daily Future NFT Mints Newsletter</StyledLink> ($550/year value)</Col>
               </Row>       
               <Row style={{ paddingTop:"5px" }}>
                 <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
@@ -516,6 +516,14 @@ function App() {
           <Col md={2}></Col>            
           <Col md={8} xs={12} style={{ textAlign:"left" }}>
             <Accordion alwaysOpen>                                          
+            <Accordion.Item eventKey="24" style={{marginBottom:"10px"}}>
+                <Accordion.Header>What does the Future NFT Mints Genesis NFT allow me to do?</Accordion.Header>
+                <Accordion.Body style={{color:"#fff"}}>
+                The FNFTM Genesis NFT grants you lifetime access to ALL research and analysis that <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Future NFT Mints</StyledLink> produces. Today, that means that you are immediately eligible to begin receiving our Daily Fresh Mints Newsletter ($550 / year) as a part of the NFT. We have plans to expand our subscription service to include access to our research as a website with more functionality and data related to NFTs. We will create a token-gated website that allows our NFT owners to have FREE access to this research.
+                <br /><br />In addition to lifetime access to our research, you will also receive 1 raffle entry per NFT you own for any raffle that we run. The prizes for these raffles will include but not limited to Allow List access to other NFT mints, merchandise, virtual event access, and IRL invitations. Please note that we will not run any raffles for cash or cash-equivalent prizes.
+                <br /><br />While the Genesis NFT grants you lifetime access to all our research and analytics, if we decide to begin selling NFT artwork or candy bars or create a movie or anything that isn’t related to research and analytics, you won’t receive that for free. We make no promises as to what benefits you may receive for any expansions beyond our research and analysis products.
+                </Accordion.Body>
+              </Accordion.Item>
             <Accordion.Item eventKey="19" style={{marginBottom:"10px"}}>
                 <Accordion.Header>How much is this mint?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -537,7 +545,7 @@ function App() {
               <Accordion.Item eventKey="7" style={{marginBottom:"10px"}}>
                 <Accordion.Header>What is an NFT?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                ‘NFT’ is an acronym that stands for Non-Fungible Token. An NFT is a digital record that cannot be taken away and is publicly viewable. The technology that makes this possible is the blockchain and smart contracts. If you’re looking to learn more about NFTs, we have a resources page with links to some of the best minds in the space who explain everything in more detail.
+                ‘NFT’ is an acronym that stands for Non-Fungible Token. An NFT is a digital record that cannot be taken away and is publicly viewable. The technology that makes this possible is the blockchain and smart contracts. If you’re looking to learn more about NFTs, we have a <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com/web3-resources.html">resources page</StyledLink> with links to some of the best minds in the space who explain everything in more detail.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="8" style={{marginBottom:"10px"}}>
@@ -573,7 +581,7 @@ function App() {
               <Accordion.Item eventKey="13" style={{marginBottom:"10px"}}>
                 <Accordion.Header>What kind of smart contract was used for the FNFTM Genesis NFT?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                Our smart contract was built starting with the gas-efficient ERC-721A contract that Azuki pioneered (add link to our tweet about ERC-721A).
+                Our smart contract was built starting with the <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://twitter.com/futurenftmints/status/1480600385639182337?s=20&t=iGiwdDCZKmvRDHHfg-ow3g">gas-efficient ERC-721A contract that Azuki pioneered</StyledLink>.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="14" style={{marginBottom:"10px"}}>
@@ -587,7 +595,7 @@ function App() {
                 <Accordion.Body style={{color:"#fff"}}>
                 There are 3 raffles (two require you owning an NFT to be eligible) being run to get a spot on our Allow List. You must submit your email address to be eligible for our raffles.
                 <br /><br />Token-gated raffles: Our frens at Club CPG have 80 spots and our frens at Floor have 40 spots. To be eligible for these raffles, you must own their NFT and submit via their Telegram and Discord, respectively.
-                <br /><br />Public raffle: To be eligible for the public raffle, you will need to join the Future NFT Mints Discord and sign up. Everyone with the ‘Early Supporter’ status in Discord (already given out and no one else can earn it) will receive 10 raffle spots.
+                <br /><br />Public raffle: To be eligible for the public raffle, you will need to <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://discord.gg/futurenftmints">join the Future NFT Mints Discord</StyledLink> and sign up for the raffle. Everyone with the ‘Early Supporter’ status in Discord (already given out and no one else can earn it) will receive 10 raffle spots. Everyone else will receive 1 raffle spot.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="16" style={{marginBottom:"10px"}}>
@@ -623,14 +631,7 @@ function App() {
                 All the money earned from the Genesis Mint will be accounted as revenue for Future NFT Mints, Inc, and it will be used to fund operations. In particular, it will largely fund salaries for full-time employees and contractors plus other operational expenses like the cost of the smart contract, servers / databases for the website, software licenses, travel to conferences, and other expenses required to operate a Web3 / NFT / research business. Since these funds are accounted as revenue, Future NFT Mints, Inc may also be required to use some of the funds to pay for taxes.
                 </Accordion.Body>
               </Accordion.Item>
-              <Accordion.Item eventKey="24" style={{marginBottom:"10px"}}>
-                <Accordion.Header>What does the Future NFT Mints Genesis NFT allow me to do?</Accordion.Header>
-                <Accordion.Body style={{color:"#fff"}}>
-                The FNFTM Genesis NFT grants you lifetime access to ALL research and analysis that FNFTM produces. Today, that means that you are immediately eligible to begin receiving our Daily Fresh Mints Newsletter ($550 / year)as a part of the NFT. We have plans to expand our subscription service to include access to our research as a website with more functionality and data related to NFTs. We will create a token-gated website that allows our NFT owners to have FREE access to this research.
-                <br /><br />In addition to lifetime access to our research, you will also receive 1 raffle entry per NFT you own for any raffle that we run. The prizes for these raffles will include, but won’t be limited to Allow List access to other NFT mints, merchandise, virtual event access, and IRL invitations.
-                <br /><br />While the Genesis NFT grants you lifetime access to all our research and analytics, if we decide to begin selling NFT artwork or candy bars or create a movie or anything that isn’t related to research and analytics, you won’t receive that for free. We make no promises as to what benefits you may receive for those sort of expansions.
-                </Accordion.Body>
-              </Accordion.Item>
+              
               <Accordion.Item eventKey="25" style={{marginBottom:"10px"}}>
                 <Accordion.Header>What is the roadmap?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -641,8 +642,8 @@ function App() {
               <Accordion.Item eventKey="26" style={{marginBottom:"10px"}}>
                 <Accordion.Header>Who’s the team building FNFTM?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                Meet the public team and check out our LinkedIn and Twitter accounts at [website].
-                <br /><br />As of March 2022, Elliot is the only full-time person working on FNFTM at this time. Everyone else is working part-time. This will change quickly once we sell 50% of our Genesis NFTs.
+                <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com#team">Meet the public team and check out our LinkedIn and Twitter accounts on our main website.</StyledLink>
+                <br /><br />As of March 2022, our founder (Elliot) is the only person working full-time on FNFTM at this time. Everyone else is working part-time. This will change quickly once we sell 50% of our Genesis NFTs.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="27" style={{marginBottom:"10px"}}>
@@ -664,7 +665,7 @@ function App() {
               <Accordion.Item eventKey="30" style={{marginBottom:"10px"}}>
                 <Accordion.Header>I bought the NFT, but I want to register a different email address to receive the email. What do I do?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                Please go to register.futurenftmints.com and follow the instructions.
+                We haven't launched register.futurenftmints.com yet, but we will update this page and announce in the Discord when it is. Once it's launched, you'll go to register.futurenftmints.com and follow the instructions.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="31" style={{marginBottom:"10px"}}>
@@ -683,7 +684,7 @@ function App() {
               <Accordion.Item eventKey="1" style={{marginBottom:"10px"}}>
                 <Accordion.Header>Who owns and is responsible for Future NFT Mints?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                As of March 2022, Elliot Koss (LinkedIn, Twitter) is Founder / CEO and  the 100% equity owner of Future NFT Mints, Inc, the Austin-based, Delaware C-corp that owns and operates Future NFT Mints.
+                As of March 2022, Elliot Koss (<StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://www.linkedin.com/in/elliotkoss/">LinkedIn</StyledLink>, <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://twitter.com/elliotkoss/">Twitter</StyledLink>) is Founder / CEO and  the 100% equity owner of Future NFT Mints, Inc, the Austin-based, Delaware C-corp that owns and operates Future NFT Mints.
                 <br /><br />At the conclusion of the Genesis Mint, Elliot Koss will remain the 100% equity owner of Future NFT Mints, Inc.
                 </Accordion.Body>
               </Accordion.Item>
@@ -691,7 +692,7 @@ function App() {
                 <Accordion.Header>Can I invest in Future NFT Mints, Inc?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
                 As of March 2022, Future NFT Mints is not seeking investment, but Elliot is writing a monthly update to begin creating a track record with accredited investors (angels and VCs) so that if there is ever a valid reason to raise a round, there are investors who are already familiar with the business and its operations to move quickly while providing a fair valuation for the raise.
-                <br /><br />If you’re an accredited investor and would like to receive the monthly investor update, please send a DM to Elliot on Twitter (link) with your email and a note about the investor update.
+                <br /><br />If you’re an accredited investor and would like to receive the monthly investor update, please <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://twitter.com/elliotkoss">DM Elliot on Twitter</StyledLink> with your email and a note about the investor update.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="3" style={{marginBottom:"10px"}}>
@@ -715,7 +716,7 @@ function App() {
       </Container>
       <Card.Footer style={{backgroundColor:"#000000", width:"100%"}}>
         <Row>
-          <Col xs={8} md={10} style={{color:"#ffffff"}}>Copyright © <StyledLink target={"_blank"} href="https://futurenftmints.com">Future NFT Mints</StyledLink> 2022 and beyond</Col>
+          <Col xs={8} md={10} style={{color:"#ffffff"}}>Copyright © <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Future NFT Mints</StyledLink> 2022 and beyond</Col>
           <Col xs={4} md={2} style={{textAlign:"right"}}>
             <StyledLink target={"_blank"} href="https://twitter.com/futurenftmints">
               <img
