@@ -135,10 +135,10 @@ function App() {
   const countdownDate = "2022-03-28T18:00:00.000+02:00";
   const countdownRenderer = ({ days, hours, minutes, seconds }) => {
     return <>
-      <Col xs={3} md={2}>{zeroPad(days)}</Col>
-      <Col xs={3} md={2}>{zeroPad(hours)}</Col>
-      <Col xs={3} md={2}>{zeroPad(minutes)}</Col>
-      <Col xs={3} md={2}>{zeroPad(seconds)}</Col>
+      <Col xs={3} md={3}>{zeroPad(days)}</Col>
+      <Col xs={3} md={3}>{zeroPad(hours)}</Col>
+      <Col xs={3} md={3}>{zeroPad(minutes)}</Col>
+      <Col xs={3} md={3}>{zeroPad(seconds)}</Col>
     </>;
   };
 
@@ -283,70 +283,41 @@ function App() {
         <Row style={{ paddingTop: "50px" }}>
           <Col md={1}></Col>
           <Col md={6}>
-            <Row style={{ color: "#ffffff", fontSize:"3em"}}>
+            <Row style={{ color: "#ffffff", fontSize:"2em"}}>
               <Col>Genesis NFT</Col>
             </Row>
-            <Row style={{ paddingTop: "20px", color: "#ffffff", fontSize:"1.25em" }}>
-              <Col>Direct access to the most in-depth, transparent NFT analysis to guide your buying decisions.</Col>
+            <Row style={{ paddingTop: "20px", color: "#ffffff", fontSize:"3em", lineHeight: "1em" }}>
+              <Col>Lifetime access to the most in-depth NFT analysis.</Col>
             </Row>
-            <Row style={{ paddingTop: "20px" }}>          
-              <Row style={{ color: "#FAC921", fontSize:"4em", textAlign:"center"}}>
-                <Countdown date={countdownDate} renderer={countdownRenderer} />                    
-              </Row>
-              <Row style={{ color: "#FAC921", fontSize:"0.75em", textAlign:"center"}}>
-                <Col xs={3} md={2}>Days</Col>
-                <Col xs={3} md={2}>Hours</Col>
-                <Col xs={3} md={2}>Minutes</Col>
-                <Col xs={3} md={2}>Seconds</Col>                
-              </Row>
-              <Row style={{ paddingTop: "20px", color: "#ffffff" }}>
+            <Row style={{ paddingTop: "20px" }}>                                      
+              <Row style={{ paddingTop: "20px", color: "#ffffff", fontSize:"1.75em" }}>
                 <Col>IMMEDIATE UTILITY & PERKS</Col>                
-              </Row>
-              <Row style={{ paddingTop:"5px" }}>
-                <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
+              </Row>              
+              <Row style={{ paddingTop:"25px", fontSize:"1.25em" }}>
+                <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}><StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Daily Future NFT Mints Newsletter</StyledLink> ($550/year value)</Col>
               </Row>       
-              <Row style={{ paddingTop:"5px" }}>
-                <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
+              <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
+                <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>Lifetime access to all research and analyses</Col>
               </Row>              
-              <Row style={{ paddingTop:"5px" }}>
-                <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
+              <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
+                <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>Private Discord</Col>
               </Row>  
-              <Row style={{ paddingTop:"5px" }}>
-                <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
-                <Col style={{ color: "#ffffff" }}>1x Raffle Spot per NFT. Stackable.</Col>
+              <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
+                <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
+                <Col style={{ color: "#ffffff" }}>1x Giveaway Spot per NFT. Stackable.</Col>
               </Row> 
-              <Row style={{ paddingTop:"5px" }}>
-                <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
+              <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
+                <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>Early Supporter T-shirt</Col>
               </Row>  
-              <Row style={{ paddingTop:"5px" }}>
-                <Col xs={2} style={{ textAlign: "center" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
+              <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
+                <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>And so much more...</Col>
               </Row>                     
-            </Row>
-            <Row style={{ paddingTop: "20px", color: "#ffffff" }}>
-              <Col xs={4}>ALLOW LIST</Col>
-              <Col>Mon, March 28 at 12pm ET</Col>
-            </Row>
-            <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
-              <Col xs={4}>PRESALE</Col>
-              <Col>Wed, March 30 at 12pm ET</Col>
-            </Row>
-            <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
-              <Col xs={4}>PUBLIC</Col>
-              <Col>Fri, April 1 at 12pm ET</Col>
-            </Row>
-            <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
-              <Col xs={4}>PRICE</Col>
-              <Col>0.25 ETH</Col>
-            </Row>
-            <Row style={{ paddingTop: "5px", color: "#ffffff" }}>
-              <Col xs={4}>QUANTITY</Col>
-              <Col>450 + 50 reserved for team and marketing</Col>
-            </Row>
+            </Row>                        
           </Col>
           <Col md={4}>
             <Row style={{ paddingTop:"50px", textAlign: "center" }}>
@@ -356,7 +327,7 @@ function App() {
             <Row style={{ marginTop:"50px", backgroundColor: "#212529", borderRadius: "5px", marginLeft:"1px", marginRight:"1px" }}>
               <Col>
                 <Row style={{ paddingTop:"25px" }}>
-                  <Col style={{ textAlign: "center", color: "#ffffff", fontSize:"1.5em" }}>Mint a Genesis NFT</Col>
+                  <Col style={{ textAlign: "center", color: "#ffffff", fontSize:"1.5em" }}>Mint Genesis NFT</Col>
                 </Row>
 
                 <Row style={{ paddingTop:"25px" }}>
@@ -501,7 +472,90 @@ function App() {
           </Col>
           <Col md={1}></Col>          
         </Row>
+
+        <Row style={{ paddingTop: "100px" }}>
+          <Col md={3}></Col>
+          <Col xs={12} md={6}>
+          <Row style={{ textAlign:"center"}}>
+              <Col>
+                <Row style={{ color: "#FAC921", fontSize:"4em", textAlign:"center"}}>
+                  <Countdown date={countdownDate} renderer={countdownRenderer} />                    
+                </Row>
+                <Row style={{ color: "#FAC921", fontSize:"1.25em", textAlign:"center"}}>
+                  <Col xs={3} md={3}>Days</Col>
+                  <Col xs={3} md={3}>Hours</Col>
+                  <Col xs={3} md={3}>Minutes</Col>
+                  <Col xs={3} md={3}>Seconds</Col>                
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={3}></Col>
+          <Col xs={12} md={7}>
+            <Row style={{ paddingTop: "80px", color: "#ffffff", fontSize:"1.5em" }}>
+              <Col xs={4}>ALLOW LIST</Col>
+              <Col>Mon, March 28 at 12pm ET</Col>
+            </Row>
+            <Row style={{ paddingTop: "15px", color: "#ffffff", fontSize:"1.5em" }}>
+              <Col xs={4}>PRESALE</Col>
+              <Col>Wed, March 30 at 12pm ET</Col>
+            </Row>
+            <Row style={{ paddingTop: "15px", color: "#ffffff", fontSize:"1.5em" }}>
+              <Col xs={4}>PUBLIC</Col>
+              <Col>Fri, April 1 at 12pm ET</Col>
+            </Row>
+            <Row style={{ paddingTop: "40px", color: "#ffffff", fontSize:"1.5em" }}>
+              <Col xs={4}>PRICE</Col>
+              <Col>0.25 ETH</Col>
+            </Row>
+            <Row style={{ paddingTop: "15px", color: "#ffffff", fontSize:"1.5em" }}>
+              <Col xs={4}>QUANTITY</Col>
+              <Col>450 + 50 reserved for team and marketing</Col>
+            </Row>
+          </Col>
+        </Row>
         
+        <Row style={{ paddingTop: "100px" }}>
+         <Col style={{ textAlign:"center", fontSize: "2em", color: " #ffffff" }}>
+         Lifetime access to Future NFT Mints' analysis and more
+          </Col>
+        </Row>
+        <Row style={{ paddingTop: "25px" }}>
+          <Col md={1}></Col>
+          <Col md={5} style={{textAlign:"center", paddingBottom:"20px"}}>
+              <img
+                alt=""
+                src="/config/images/2022-03-18-FutureNFTMints.png"              
+                height="500"
+                className="d-inline-block align-top"  
+                margin="10"            
+              />
+          </Col>
+          <Col md={5} style={{ fontSize: "1.25em", color: " #ffffff", lineHeight: "1.25em" }}>
+            Our Genesis NFT grants lifetime access to ALL research and analysis that <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Future NFT Mints</StyledLink> produces. NFT owners are immediately eligible to receive our Daily Fresh Mints Newsletter ($550 / year).
+            <br /><br />In addition to our research, NFT owners will also receive 1 entry per NFT you own for any giveaway that we run. The potential prizes for these giveaways include (but not limited to) Allow List access to other NFT mints, merchandise, virtual event access, and IRL invitations. Please note that we will not run any giveaways for cash or cash-equivalent prizes.
+            <br /><br />We make no promises as to what benefits you may receive for any expansions beyond our research and analysis products. For instance, if we begin selling NFT artwork or candy bars or create a movie or anything that isn’t related to research and analytics, you won’t receive that for free.
+          </Col>
+        </Row>
+
+        <Row style={{ paddingTop: "75px" }}>
+
+          <Col md={2}></Col>            
+          <Col md={8} xs={12} style={{ textAlign:"center", fontSize: "3em", color: " #ffffff" }}>
+            Join our Discord and enter to win an Allow List spot. All entries are automatically added to our Presale.
+            <br /><br />
+            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
+            <Button size="lg" style={{ backgroundColor: "#F83700", border: "#F83700", padding:"20px" }}>
+                Join our Discord
+              </Button>
+            </StyledLink>             
+              
+          </Col>
+          <Col md={2}></Col>            
+        </Row>
+
         <Row style={{ paddingTop: "75px" }}>
 
           <Col md={3}></Col>            
@@ -514,26 +568,13 @@ function App() {
         <Row style={{ paddingTop: "20px", paddingBottom: "100px" }}>
 
           <Col md={2}></Col>            
-          <Col md={8} xs={12} style={{ textAlign:"left" }}>
-            <Accordion alwaysOpen>                                          
-            <Accordion.Item eventKey="24" style={{marginBottom:"10px"}}>
-                <Accordion.Header>What does the Future NFT Mints Genesis NFT allow me to do?</Accordion.Header>
-                <Accordion.Body style={{color:"#fff"}}>
-                The FNFTM Genesis NFT grants you lifetime access to ALL research and analysis that <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Future NFT Mints</StyledLink> produces. Today, that means that you are immediately eligible to begin receiving our Daily Fresh Mints Newsletter ($550 / year) as a part of the NFT. We have plans to expand our subscription service to include access to our research as a website with more functionality and data related to NFTs. We will create a token-gated website that allows our NFT owners to have FREE access to this research.
-                <br /><br />In addition to lifetime access to our research, you will also receive 1 raffle entry per NFT you own for any raffle that we run. The prizes for these raffles will include but not limited to Allow List access to other NFT mints, merchandise, virtual event access, and IRL invitations. Please note that we will not run any raffles for cash or cash-equivalent prizes.
-                <br /><br />While the Genesis NFT grants you lifetime access to all our research and analytics, if we decide to begin selling NFT artwork or candy bars or create a movie or anything that isn’t related to research and analytics, you won’t receive that for free. We make no promises as to what benefits you may receive for any expansions beyond our research and analysis products.
-                </Accordion.Body>
-              </Accordion.Item>
-            <Accordion.Item eventKey="19" style={{marginBottom:"10px"}}>
-                <Accordion.Header>How much is this mint?</Accordion.Header>
+          <Col md={8} xs={12} style={{ textAlign:"left", lineHeight: "1.25em" }}>
+            <Accordion alwaysOpen>                                                                    
+              <Accordion.Item eventKey="19" style={{marginBottom:"10px"}}>
+                <Accordion.Header>How much is this mint and how many Genesis NFTs will there be?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
                 0.25 ETH.
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="20" style={{marginBottom:"10px"}}>
-                <Accordion.Header>How many Genesis NFTs are there?</Accordion.Header>
-                <Accordion.Body style={{color:"#fff"}}>
-                500. We are selling 450, and we are reserving 50 for our team and marketing.
+                <br /><br />500. We are selling 450, and we are reserving 50 for our team and marketing.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="21" style={{marginBottom:"10px"}}>
@@ -547,13 +588,7 @@ function App() {
                 <Accordion.Body style={{color:"#fff"}}>
                 ‘NFT’ is an acronym that stands for Non-Fungible Token. An NFT is a digital record that cannot be taken away and is publicly viewable. The technology that makes this possible is the blockchain and smart contracts. If you’re looking to learn more about NFTs, we have a <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com/web3-resources.html">resources page</StyledLink> with links to some of the best minds in the space who explain everything in more detail.
                 </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="8" style={{marginBottom:"10px"}}>
-                <Accordion.Header>On which blockchain is FNFTM Genesis NFT minted?</Accordion.Header>
-                <Accordion.Body style={{color:"#fff"}}>
-                Ethereum.
-                </Accordion.Body>
-              </Accordion.Item>
+              </Accordion.Item>              
               <Accordion.Item eventKey="9" style={{marginBottom:"10px"}}>
                 <Accordion.Header>Why did you choose to mint your NFT on Ethereum?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -628,7 +663,7 @@ function App() {
               <Accordion.Item eventKey="23" style={{marginBottom:"10px"}}>
                 <Accordion.Header>How will the money earned in this mint be used?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                All the money earned from the Genesis Mint will be accounted as revenue for Future NFT Mints, Inc, and it will be used to fund operations. In particular, it will largely fund salaries for full-time employees and contractors plus other operational expenses like the cost of the smart contract, servers / databases for the website, software licenses, travel to conferences, and other expenses required to operate a Web3 / NFT / research business. Since these funds are accounted as revenue, Future NFT Mints, Inc may also be required to use some of the funds to pay for taxes.
+                All the money earned from the Genesis Mint will be accounted as revenue for Future NFT Mints, Inc, and it will be used to fund our business. Since these funds are accounted as revenue, Future NFT Mints, Inc may also be required to use some of the funds to pay for taxes.
                 </Accordion.Body>
               </Accordion.Item>
               
