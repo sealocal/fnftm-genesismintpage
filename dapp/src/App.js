@@ -494,13 +494,19 @@ function App() {
         <Row>
           <Col md={3}></Col>
           <Col xs={12} md={7}>
-            <Row style={{ paddingTop: "80px", color: "#ffffff", fontSize:"1.5em" }}>
+            <Row style={{ paddingTop: "80px", color: "#ffffff", fontSize:"1.5em", lineHeight:"1.25em" }}>
               <Col xs={4}>ALLOW LIST</Col>
-              <Col>Mon, March 28 at 12pm ET</Col>
+              <Col>
+                Mon, March 28 at 12pm ET
+                <br /><StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://docs.google.com/spreadsheets/d/15YhXZI6W9v6sS8OT32fAsikhgck2AzMlJ3fK1KeOSoM/edit#gid=0">Check if you're on the Allow List</StyledLink>
+              </Col>
             </Row>
-            <Row style={{ paddingTop: "15px", color: "#ffffff", fontSize:"1.5em" }}>
+            <Row style={{ paddingTop: "15px", color: "#ffffff", fontSize:"1.5em", lineHeight:"1.25em" }}>
               <Col xs={4}>PRESALE</Col>
-              <Col>Wed, March 30 at 12pm ET</Col>
+              <Col>
+                Wed, March 30 at 12pm ET
+                <br /><StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://docs.google.com/spreadsheets/d/1ty02P6gr8T1ARFp6HF7WMquYKOXei9v0oIXTUv-_cb0/edit#gid=0">Check if you're on the Presale list</StyledLink>
+              </Col>
             </Row>
             <Row style={{ paddingTop: "15px", color: "#ffffff", fontSize:"1.5em" }}>
               <Col xs={4}>PUBLIC</Col>
