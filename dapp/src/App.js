@@ -260,8 +260,7 @@ function App() {
             </StyledLink> 
             */} 
 
-            {/*
-            { (blockchain.account !== "" && blockchain.smartContract !== null) ?
+            { (blockchain.account !== "" && blockchain.smartContract !== null) ? null :
               <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
                 onClick={(e) => {
                   e.preventDefault();
@@ -270,8 +269,8 @@ function App() {
                 } }
               >
                 Connect Wallet
-              </Button> : null
-            }     
+              </Button>
+            }
             */} 
 
             </Nav>
