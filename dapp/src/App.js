@@ -149,10 +149,78 @@ function App() {
     let totalGasLimit = String(gasLimit * mintAmount);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
-    setClaimingNft(true);
+    console.log("totalSupply: ", data.totalSupply)
+    console.log("isAllowListMintEnabled: ", data.isAllowListMintEnabled)
+    console.log("isPresaleMintEnabled: ", data.isPresaleMintEnabled)
+    console.log("isPublicMintEnabled: ", data.isPublicMintEnabled)
+
+    if (data.isAllowListMintEnabled) {
+      setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+      setClaimingNft(true);
+
+      if (data.isPublicMintEnabled) {
+        publicMint(totalCostWei, totalGasLimit)
+      } else if (data.isPresaleMintEnabled) {
+        presaleMint(totalCostWei, totalGasLimit)
+      } else {
+        allowListMint(totalCostWei, totalGasLimit)
+      }
+    } else {
+      console.log('mint phases not enabled')
+    }
+  };
+
+  const allowListMint = (totalCostWei, totalGasLimit) => {
     blockchain.smartContract.methods
-      .mint(mintAmount)
+      .allowListMint(mintAmount)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit Opensea.io to view it.`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
+  const presaleMint = (totalCostWei, totalGasLimit) => {
+    blockchain.smartContract.methods
+      .presaleMint(mintAmount)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit Opensea.io to view it.`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
+  const publicMint = (totalCostWei, totalGasLimit) => {
+    blockchain.smartContract.methods
+      .publicMint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
