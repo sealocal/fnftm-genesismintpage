@@ -260,8 +260,8 @@ function App() {
             </StyledLink>
             */}
 
-            {/*
-            { (blockchain.account !== "" && blockchain.smartContract !== null) ?
+
+            { (blockchain.account !== "" && blockchain.smartContract !== null) ? null :
               <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
                 onClick={(e) => {
                   e.preventDefault();
@@ -270,9 +270,8 @@ function App() {
                 } }
               >
                 Connect Wallet
-              </Button> : null
+              </Button>
             }
-            */}
 
             </Nav>
           </Navbar.Collapse>
@@ -335,7 +334,7 @@ function App() {
                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
                 </Row>
 
-                {/*}
+                }
                 <Row>
                   <Col>
                     <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
@@ -460,7 +459,7 @@ function App() {
                     )}
                   </Col>
                 </Row>
-                */}
+
 
 
                 <Row  style={{ paddingBottom:"50px" }}></Row>
