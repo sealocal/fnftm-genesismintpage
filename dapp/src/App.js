@@ -335,7 +335,6 @@ function App() {
                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
                 </Row> 
 
-                {/*}
                 <Row>
                   <Col>
                     <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
@@ -458,9 +457,9 @@ function App() {
                         )}
                       </>
                     )}
-                  </Col> 
-                </Row> 
-                */}   
+                  </Col>
+                </Row>
+
 
 
                 <Row  style={{ paddingBottom:"50px" }}></Row>
