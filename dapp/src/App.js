@@ -111,7 +111,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Click buy to mint your NFT. Click <a href="#">here</a> for details.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -406,8 +406,8 @@ function App() {
                                 color: "#ffffff",
                               }}
                             >
-                              <Col style={{textAlign: "center" }}>{feedback}</Col>
-                              
+                              <Col style={{textAlign: "center" }} dangerouslySetInnerHTML={{ __html: feedback }}></Col>
+
                             </Row>
                             <s.SpacerMedium />
                             <s.Container ai={"center"} jc={"center"} fd={"row"}>
