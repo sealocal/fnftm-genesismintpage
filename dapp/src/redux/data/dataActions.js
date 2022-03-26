@@ -29,6 +29,18 @@ export const fetchData = () => {
         .getState()
         .blockchain.smartContract.methods.totalSupply()
         .call();
+      let isAllowListMintEnabled = await store
+        .getState()
+        .blockchain.smartContract.methods.isAllowListMintEnabled()
+        .call();
+      let isPresaleMintEnabled = await store
+        .getState()
+        .blockchain.smartContract.methods.isPresaleMintEnabled()
+        .call();
+      let isPublicMintEnabled = await store
+        .getState()
+        .blockchain.smartContract.methods.isPublicMintEnabled()
+        .call();
       // let cost = await store
       //   .getState()
       //   .blockchain.smartContract.methods.cost()
@@ -37,6 +49,9 @@ export const fetchData = () => {
       dispatch(
         fetchDataSuccess({
           totalSupply,
+          isAllowListMintEnabled,
+          isPresaleMintEnabled,
+          isPublicMintEnabled,
           // cost,
         })
       );
