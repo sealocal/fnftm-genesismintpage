@@ -293,13 +293,13 @@ function App() {
     let currentPhase,
         maxMint
     if (data.isPublicMintEnabled) {
-      currentOrUpcomingPhase = 'Public'
+      currentPhase = 'Public'
       maxMint = 5
     } else if (data.allowListAllocation) {
-      currentOrUpcomingPhase = 'Allow List'
+      currentPhase = 'Allow List'
       maxMint = 2
     } else if (data.presaleListAllocation) {
-      currentOrUpcomingPhase = 'Presale'
+      currentPhase = 'Presale'
       maxMint = 2
     }
     if (currentPhase) {
