@@ -324,8 +324,14 @@ function App() {
     </s.Container>
   }
 
+  const shouldRenderConnectedWalletMintUI = () => {
+    return data.isAllowListMintEnabled && data.allowListAllocation ||
+           data.isPresaleMintEnabled && data.presaleListAllocation ||
+           data.isPublicMintEnabled
+  }
+
   const connectedWalletMintUI = () => {
-    return <>
+    return shouldRenderConnectedWalletMintUI() ? <>
       <Row
         style={{
           color: "#ffffff",
@@ -379,7 +385,7 @@ function App() {
           {claimingNft ? "BUSY" : "BUY"}
         </Button>
       </s.Container>
-    </>
+    </> : null
   }
 
   return (
