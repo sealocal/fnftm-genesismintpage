@@ -53,6 +53,14 @@ export const fetchData = () => {
         .getState()
         .blockchain.smartContract.methods.balanceOf(account)
         .call();
+      let allowListAllocation = await store
+        .getState()
+        .blockchain.smartContract.methods.allowList(account)
+        .call();
+      let presaleListAllocation = await store
+        .getState()
+        .blockchain.smartContract.methods.presaleList(account)
+        .call();
 
       dispatch(
         fetchDataSuccess({
@@ -61,6 +69,8 @@ export const fetchData = () => {
           isPresaleMintEnabled,
           isPublicMintEnabled,
           balance,
+          allowListAllocation,
+          presaleListAllocation
           // cost,
         })
       );

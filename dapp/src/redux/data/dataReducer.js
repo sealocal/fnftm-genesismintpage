@@ -24,6 +24,8 @@ const dataReducer = (state = initialState, action) => {
         isPresaleMintEnabled: action.payload.isPresaleMintEnabled,
         isPublicMintEnabled: action.payload.isPublicMintEnabled,
         balance: action.payload.balance,
+        allowListAllocation: action.payload.allowListAllocation,
+        presaleListAllocation: action.payload.presaleListAllocation,
         // cost: action.payload.cost,
         error: false,
         errorMsg: "",

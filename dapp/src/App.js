@@ -290,7 +290,21 @@ function App() {
   };
 
   const getFeedback = async () => {
-    setFeedback(`${blockchain.account} can mint ${maxRemainingPerAddressDuringMint()} during Allow List phase`)
+    let currentPhase,
+        maxMint
+    if (data.isPublicMintEnabled) {
+      currentPhase = 'Public'
+      maxMint = 5
+    } else if (data.isPresaleMintEnabled && data.presaleListAllocation) {
+      currentPhase = 'Presale'
+      maxMint = 2
+    } else if (data.isAllowListMintEnabled && data.allowListAllocation) {
+      currentPhase = 'Allow List'
+      maxMint = 2
+    }
+    if (currentPhase) {
+      setFeedback(`${blockchain.account} can mint ${maxMint} during ${currentPhase} phase`)
+    }
   };
 
   useEffect(() => {
@@ -333,8 +347,8 @@ function App() {
   }
 
   const shouldRenderConnectedWalletMintUI = () => {
-    return data.isAllowListMintEnabled && data.allowListAllocation ||
-           data.isPresaleMintEnabled && data.presaleListAllocation ||
+    return data.isAllowListMintEnabled && data.allowListAllocation && data.allowListAllocation >= 0 ||
+           data.isPresaleMintEnabled && data.allowLispresaleListAllocationtAllocation && data.presaleListAllocation >= 0 ||
            data.isPublicMintEnabled
   }
 
