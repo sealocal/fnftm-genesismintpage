@@ -317,7 +317,6 @@ function App() {
                 className="d-inline-block align-top"                           
               />{' '}&nbsp;&nbsp;&nbsp;
             </StyledLink> 
-            {/* 
             <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
               <img
                 alt=""
@@ -325,11 +324,10 @@ function App() {
                 height="30"
                 className="d-inline-block align-top"                           
               />{' '}&nbsp;&nbsp;&nbsp;
-            </StyledLink> 
-            */} 
+            </StyledLink>             
 
             {/*
-            { (blockchain.account !== "" && blockchain.smartContract !== null) ?
+            { (blockchain.account === "" ||  blockchain.smartContract === null) ?
               <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
                 onClick={(e) => {
                   e.preventDefault();
@@ -340,7 +338,8 @@ function App() {
                 Connect Wallet
               </Button> : null
             }     
-            */} 
+          */}
+            
 
             </Nav>
           </Navbar.Collapse>
@@ -400,14 +399,14 @@ function App() {
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
-                  */}
+                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
+                  
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
                   */}
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
                   */}
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
-                  
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
                 </Row> 
 
                 <Row style={{ paddingTop:"25px" }}>
@@ -536,7 +535,11 @@ function App() {
                 </Row>
 
 
-
+                <Row style={{ paddingTop:"10px" }}>
+                  <Col>
+                  <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Smart Contract on Etherscan</StyledLink>
+                  </Col>                  
+                </Row>
                 <Row  style={{ paddingBottom:"25px" }}></Row>
               
               </Col> 
@@ -833,8 +836,17 @@ function App() {
                 alt=""
                 src="/config/images/discord.png"              
                 height="20"
+                margin="10"    
                 className="d-inline-block align-top"                           
-              />{' '}
+              />{' '}&nbsp;&nbsp;
+            </StyledLink> 
+            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
+              <img
+                alt=""
+                src="/config/images/opensea.png"              
+                height="20"
+                className="d-inline-block align-top"                           
+              />{' '}&nbsp;&nbsp;&nbsp;
             </StyledLink> 
           </Col>
         </Row>
