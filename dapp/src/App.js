@@ -297,6 +297,91 @@ function App() {
     getData();
   }, [blockchain.account]);
 
+  const connectWalletContainer = () => {
+    return <s.Container ai={"center"} jc={"center"}>
+      {blockchain.errorMsg !== "" ? (
+        <>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "#ffffff",
+            }}
+          >
+            {blockchain.errorMsg}
+          </s.TextDescription>
+        </>
+      ) : null}
+      <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
+  onClick={(e) => {
+          e.preventDefault();
+          dispatch(connect());
+          getData();
+        } }
+      >
+        Connect Wallet
+      </Button>
+
+    </s.Container>
+  }
+
+  const connectedWalletMintUI = () => {
+    return <>
+      <Row
+        style={{
+          color: "#ffffff",
+        }}
+      >
+        <Col style={{textAlign: "center" }}>{feedback}</Col>
+
+      </Row>
+      <s.SpacerMedium />
+      <s.Container ai={"center"} jc={"center"} fd={"row"}>
+        <StyledRoundButton
+          style={{ lineHeight: 0.4 }}
+          disabled={claimingNft ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            decrementMintAmount();
+          } }
+        >
+          -
+        </StyledRoundButton>
+        <s.SpacerMedium />
+        <s.TextDescription
+          style={{
+            textAlign: "center",
+            color: "#ffffff",
+          }}
+        >
+          {mintAmount}
+        </s.TextDescription>
+        <s.SpacerMedium />
+        <StyledRoundButton
+          disabled={claimingNft ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            incrementMintAmount();
+          } }
+        >
+          +
+        </StyledRoundButton>
+      </s.Container>
+      <s.SpacerSmall />
+      <s.Container ai={"center"} jc={"center"} fd={"row"}>
+      <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
+          disabled={claimingNft ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            claimNFTs();
+            getData();
+          } }
+        >
+          {claimingNft ? "BUSY" : "BUY"}
+        </Button>
+      </s.Container>
+    </>
+  }
+
   return (
     <>
       <Navbar style={{backgroundColor: "#000000" }}>
@@ -459,90 +544,9 @@ function App() {
                       </>
                     ) : (
                       <>
-                        
-                        {blockchain.account === "" ||
-                          blockchain.smartContract === null ? (
-                          <s.Container ai={"center"} jc={"center"}>                                                        
-                            {blockchain.errorMsg !== "" ? (
-                              <>
-                                <s.TextDescription
-                                  style={{
-                                    textAlign: "center",
-                                    color: "#ffffff",
-                                  }}
-                                >
-                                  {blockchain.errorMsg}
-                                </s.TextDescription>
-                              </>
-                            ) : null}
-                            <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
-                        onClick={(e) => {
-                                e.preventDefault();
-                                dispatch(connect());
-                                getData();
-                              } }
-                            >
-                              Connect Wallet
-                            </Button>
-                            
-                          </s.Container>
-                        ) : (
-                          <>
-                            <Row
-                              style={{                                
-                                color: "#ffffff",
-                              }}
-                            >
-                              <Col style={{textAlign: "center" }}>{feedback}</Col>
-                              
-                            </Row>
-                            <s.SpacerMedium />
-                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                              <StyledRoundButton
-                                style={{ lineHeight: 0.4 }}
-                                disabled={claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  decrementMintAmount();
-                                } }
-                              >
-                                -
-                              </StyledRoundButton>
-                              <s.SpacerMedium />
-                              <s.TextDescription
-                                style={{
-                                  textAlign: "center",
-                                  color: "#ffffff",
-                                }}
-                              >
-                                {mintAmount}
-                              </s.TextDescription>
-                              <s.SpacerMedium />
-                              <StyledRoundButton
-                                disabled={claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  incrementMintAmount();
-                                } }
-                              >
-                                +
-                              </StyledRoundButton>
-                            </s.Container>
-                            <s.SpacerSmall />
-                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                            <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
-                                disabled={claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  claimNFTs();
-                                  getData();
-                                } }
-                              >
-                                {claimingNft ? "BUSY" : "BUY"}
-                              </Button>
-                            </s.Container>
-                          </>
-                        )}
+                        { blockchain.account === "" || blockchain.smartContract === null ?
+                          connectWalletContainer() : connectedWalletMintUI()
+                        }
                       </>
                     )}
                   </Col>
