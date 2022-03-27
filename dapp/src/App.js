@@ -112,7 +112,7 @@ function App() {
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
-  const [mintAmount, setMintAmount] = useState(1);
+  const [mintAmount, setMintAmount] = useState(0);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -245,18 +245,32 @@ function App() {
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
-      newMintAmount = 1;
+      newMintAmount = 0;
     }
     setMintAmount(newMintAmount);
   };
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 5) {
-      newMintAmount = 5;
+    if (newMintAmount > maxRemainingPerAddressDuringMint()) {
+      newMintAmount = maxRemainingPerAddressDuringMint();
     }
     setMintAmount(newMintAmount);
   };
+
+  const maxRemainingPerAddressDuringMint = () => {
+    const presaleLimit = 2,
+          publicLimit = 5;
+
+    let limit = 0;
+    if (data.isPublicMintEnabled) {
+      limit = publicLimit
+    } else if (data.isPresaleMintEnabled || data.isAllowListMintEnabled) {
+      limit = presaleLimit
+    }
+
+    return data.balance >= limit ? 0 : (limit - data.balance);
+  }
 
   const getData = () => {
     if (blockchain.account !== "" && blockchain.smartContract !== null) {

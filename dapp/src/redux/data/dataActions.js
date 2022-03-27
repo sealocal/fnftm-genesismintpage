@@ -46,12 +46,21 @@ export const fetchData = () => {
       //   .blockchain.smartContract.methods.cost()
       //   .call();
 
+      let account = await store
+        .getState()
+        .blockchain.account
+      let balance = await store
+        .getState()
+        .blockchain.smartContract.methods.balanceOf(account)
+        .call();
+
       dispatch(
         fetchDataSuccess({
           totalSupply,
           isAllowListMintEnabled,
           isPresaleMintEnabled,
           isPublicMintEnabled,
+          balance,
           // cost,
         })
       );

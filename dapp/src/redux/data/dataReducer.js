@@ -23,6 +23,7 @@ const dataReducer = (state = initialState, action) => {
         isAllowListMintEnabled: action.payload.isAllowListMintEnabled,
         isPresaleMintEnabled: action.payload.isPresaleMintEnabled,
         isPublicMintEnabled: action.payload.isPublicMintEnabled,
+        balance: action.payload.balance,
         // cost: action.payload.cost,
         error: false,
         errorMsg: "",
