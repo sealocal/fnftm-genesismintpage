@@ -291,20 +291,20 @@ function App() {
 
   const getFeedback = async () => {
     let currentPhase,
-        maxMint
+        maxRemainingMint
+
     if (data.isPublicMintEnabled) {
       currentPhase = 'Public'
-      maxMint = 5
+      maxRemainingMint = 5 - parseInt(data.balance)
     } else if (data.allowListAllocation) {
       currentPhase = 'Allow List'
-      maxMint = 2
+      maxRemainingMint = 2  - parseInt(data.balance)
     } else if (data.presaleListAllocation) {
       currentPhase = 'Presale'
-      maxMint = 2
+      maxRemainingMint = 2 - parseInt(data.balance)
     }
-    if (currentPhase) {
-      setFeedback(`${blockchain.account} can mint ${maxMint} during ${currentPhase} phase`)
-    }
+
+    setFeedback(`${blockchain.account} can mint ${maxRemainingMint} during ${currentPhase} phase`)
   };
 
   useEffect(() => {
@@ -313,7 +313,7 @@ function App() {
 
   useEffect(() => {
     getFeedback();
-  }, [blockchain.account, maxRemainingPerAddressDuringMint]);
+  }, [blockchain.account, data.balance]);
 
   useEffect(() => {
     getData();
@@ -347,13 +347,15 @@ function App() {
   }
 
   const walletHasAllocation = () => {
-    return data.isAllowListMintEnabled && data.allowListAllocation && data.allowListAllocation >= 0 ||
-      data.isPresaleMintEnabled && data.allowLispresaleListAllocationtAllocation && data.presaleListAllocation >= 0 ||
+    return parseInt(data.allowListAllocation) && parseInt(data.allowListAllocation) >= 0 ||
+      parseInt(data.presaleListAllocation) && parseInt(data.presaleListAllocation) >= 0 ||
       data.isPublicMintEnabled
   }
 
   const shouldRenderConnectedWalletMintUI = () => {
-    return walletHasAllocation()
+    return data.isAllowListMintEnabled && parseInt(data.allowListAllocation) && parseInt(data.allowListAllocation) >= 0 ||
+      data.isPresaleMintEnabled && parseInt(data.presaleListAllocation) && parseInt(data.presaleListAllocation) >= 0 ||
+      data.isPublicMintEnabled
   }
 
   const shouldRenderFeedbackMessage = () => {
