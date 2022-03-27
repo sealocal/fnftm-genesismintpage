@@ -400,10 +400,17 @@ function App() {
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
+                  */}
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
                 </Row> 
 
-                <Row>
+                <Row style={{ paddingTop:"25px" }}>
                   <Col>
                     <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
                   </Col>                  
@@ -492,7 +499,7 @@ function App() {
                               <s.TextDescription
                                 style={{
                                   textAlign: "center",
-                                  color: "var(--accent-text)",
+                                  color: "#ffffff",
                                 }}
                               >
                                 {mintAmount}
