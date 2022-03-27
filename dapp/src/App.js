@@ -293,13 +293,13 @@ function App() {
     let currentPhase,
         maxMint
     if (data.isPublicMintEnabled) {
-      currentPhase = 'Public'
+      currentOrUpcomingPhase = 'Public'
       maxMint = 5
-    } else if (data.isPresaleMintEnabled && data.presaleListAllocation) {
-      currentPhase = 'Presale'
+    } else if (data.allowListAllocation) {
+      currentOrUpcomingPhase = 'Allow List'
       maxMint = 2
-    } else if (data.isAllowListMintEnabled && data.allowListAllocation) {
-      currentPhase = 'Allow List'
+    } else if (data.presaleListAllocation) {
+      currentOrUpcomingPhase = 'Presale'
       maxMint = 2
     }
     if (currentPhase) {
@@ -346,22 +346,35 @@ function App() {
     </s.Container>
   }
 
-  const shouldRenderConnectedWalletMintUI = () => {
+  const walletHasAllocation = () => {
     return data.isAllowListMintEnabled && data.allowListAllocation && data.allowListAllocation >= 0 ||
-           data.isPresaleMintEnabled && data.allowLispresaleListAllocationtAllocation && data.presaleListAllocation >= 0 ||
-           data.isPublicMintEnabled
+      data.isPresaleMintEnabled && data.allowLispresaleListAllocationtAllocation && data.presaleListAllocation >= 0 ||
+      data.isPublicMintEnabled
+  }
+
+  const shouldRenderConnectedWalletMintUI = () => {
+    return walletHasAllocation()
+  }
+
+  const shouldRenderFeedbackMessage = () => {
+    if (blockchain.account === "" && blockchain.smartContract === null)
+      return false
+
+    return walletHasAllocation()
+  }
+
+  const feedbackMessage = () => {
+    return shouldRenderFeedbackMessage() ? <Row
+      style={{
+        color: "#ffffff",
+      }}
+    >
+      <Col style={{textAlign: "center" }}>{feedback}</Col>
+    </Row> : null
   }
 
   const connectedWalletMintUI = () => {
     return shouldRenderConnectedWalletMintUI() ? <>
-      <Row
-        style={{
-          color: "#ffffff",
-        }}
-      >
-        <Col style={{textAlign: "center" }}>{feedback}</Col>
-
-      </Row>
       <s.SpacerMedium />
       <s.Container ai={"center"} jc={"center"} fd={"row"}>
         <StyledRoundButton
@@ -569,6 +582,7 @@ function App() {
                       </>
                     ) : (
                       <>
+                        {feedbackMessage()}
                         { blockchain.account === "" || blockchain.smartContract === null ?
                           connectWalletContainer() : connectedWalletMintUI()
                         }
