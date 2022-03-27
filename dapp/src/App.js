@@ -302,10 +302,10 @@ function App() {
       maxRemainingMint = 5 - balance
     } else if (allowListAllocation) {
       currentPhase = 'Allow List'
-      maxRemainingMint =allowListAllocation - balance
+      maxRemainingMint = allowListAllocation - balance
     } else if (presaleListAllocation) {
       currentPhase = 'Presale'
-      maxRemainingMint = parseInt(presaleListAllocation) - balance
+      maxRemainingMint = presaleListAllocation - balance
     } else {
       maxRemainingMint = 0
       currentPhase = 'Allow List'
@@ -320,7 +320,7 @@ function App() {
 
   useEffect(() => {
     getFeedback();
-  }, [blockchain.account]);
+  }, [blockchain.account, data.allowListAllocation, data.presaleListAllocation]);
 
   useEffect(() => {
     getData();
