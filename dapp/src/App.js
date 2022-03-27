@@ -289,9 +289,17 @@ function App() {
     SET_CONFIG(config);
   };
 
+  const getFeedback = async () => {
+    setFeedback(`${blockchain.account} can mint ${maxRemainingPerAddressDuringMint()} during Allow List phase`)
+  };
+
   useEffect(() => {
     getConfig();
   }, []);
+
+  useEffect(() => {
+    getFeedback();
+  }, [blockchain.account, maxRemainingPerAddressDuringMint]);
 
   useEffect(() => {
     getData();
