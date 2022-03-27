@@ -293,15 +293,22 @@ function App() {
     let currentPhase,
         maxRemainingMint
 
+    let balance = parseInt(data.balance),
+        allowListAllocation = parseInt(data.allowListAllocation),
+        presaleListAllocation = parseInt(data.presaleListAllocation)
+
     if (data.isPublicMintEnabled) {
       currentPhase = 'Public'
-      maxRemainingMint = 5 - parseInt(data.balance)
-    } else if (data.allowListAllocation) {
+      maxRemainingMint = 5 - balance
+    } else if (allowListAllocation) {
       currentPhase = 'Allow List'
-      maxRemainingMint = 2  - parseInt(data.balance)
-    } else if (data.presaleListAllocation) {
+      maxRemainingMint =allowListAllocation - balance
+    } else if (presaleListAllocation) {
       currentPhase = 'Presale'
-      maxRemainingMint = 2 - parseInt(data.balance)
+      maxRemainingMint = parseInt(presaleListAllocation) - balance
+    } else {
+      maxRemainingMint = 0
+      currentPhase = 'Allow List'
     }
 
     setFeedback(`${blockchain.account} can mint ${maxRemainingMint} during ${currentPhase} phase`)
@@ -313,7 +320,7 @@ function App() {
 
   useEffect(() => {
     getFeedback();
-  }, [blockchain.account, data.balance]);
+  }, [blockchain.account]);
 
   useEffect(() => {
     getData();
@@ -346,12 +353,6 @@ function App() {
     </s.Container>
   }
 
-  const walletHasAllocation = () => {
-    return parseInt(data.allowListAllocation) && parseInt(data.allowListAllocation) >= 0 ||
-      parseInt(data.presaleListAllocation) && parseInt(data.presaleListAllocation) >= 0 ||
-      data.isPublicMintEnabled
-  }
-
   const shouldRenderConnectedWalletMintUI = () => {
     return data.isAllowListMintEnabled && parseInt(data.allowListAllocation) && parseInt(data.allowListAllocation) >= 0 ||
       data.isPresaleMintEnabled && parseInt(data.presaleListAllocation) && parseInt(data.presaleListAllocation) >= 0 ||
@@ -359,10 +360,7 @@ function App() {
   }
 
   const shouldRenderFeedbackMessage = () => {
-    if (blockchain.account === "" && blockchain.smartContract === null)
-      return false
-
-    return walletHasAllocation()
+    return (blockchain.account!== "" && blockchain.smartContract !== null)
   }
 
   const feedbackMessage = () => {
