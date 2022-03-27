@@ -252,8 +252,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 2) {
-      newMintAmount = 2;
+    if (newMintAmount > 5) {
+      newMintAmount = 5;
     }
     setMintAmount(newMintAmount);
   };
@@ -402,12 +402,12 @@ function App() {
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
                   */}
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
-                  
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
                   */}
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
-                  */}
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
+                  
                 </Row> 
 
                 <Row style={{ paddingTop:"25px" }}>
@@ -417,11 +417,11 @@ function App() {
                 </Row>
 
                 <Row style={{ paddingTop:"5px" }}>                  
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>0.25 ETH</Col>
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>0.000025 ETH Rinkeby</Col>
                   <Col style={{ textAlign: "right", color: "#ffffff" }}>{data.totalSupply} / {CONFIG.MAX_SUPPLY}</Col>
                 </Row>
 
-                <Row  style={{ paddingBottom:"25px" }}>
+                <Row>
                   
                   <Col xs={12} style={{ paddingTop:"25px", textAlign: "center" }}>
                     { (blockchain.account !== "" && blockchain.smartContract !== null) ? null :
@@ -537,7 +537,7 @@ function App() {
 
 
 
-                <Row  style={{ paddingBottom:"50px" }}></Row>
+                <Row  style={{ paddingBottom:"25px" }}></Row>
               
               </Col> 
 
@@ -620,21 +620,7 @@ function App() {
           </Col>
         </Row>
 
-        <Row style={{ paddingTop: "75px" }}>
-
-          <Col md={2}></Col>            
-          <Col md={8} xs={12} style={{ textAlign:"center", fontSize: "3em", color: " #ffffff" }}>
-            Join our Discord and enter to win an Allow List spot. All entries are automatically added to our Presale.
-            <br /><br />
-            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
-            <Button size="lg" style={{ backgroundColor: "#F83700", border: "#F83700", padding:"20px" }}>
-                Join our Discord
-              </Button>
-            </StyledLink>             
-              
-          </Col>
-          <Col md={2}></Col>            
-        </Row>
+        
 
         <Row style={{ paddingTop: "75px" }}>
 
@@ -771,7 +757,7 @@ function App() {
                 <Accordion.Header>I own the NFT, how will you send me my tshirt?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
                 We will be taking a snapshot on Mon, Apr 4, 2022 at 12pm ET, and each NFT entitles the owner to 1 T-shirt. If you own 5 NFTs, you get 5 T-shirts.
-                <br /><br />To make sure that we have your shipping info, please go to register.futurenftmints.com and follow the instructions. We will be sharing a form in our Discord and via email for all snapshot wallets.
+                <br /><br />To make sure that we have your shipping info, please go to <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://register.futurenftmints.com">register.futurenftmints.com</StyledLink> and follow the instructions.
                 <br /><br />If we don’t have your shipping info by April 11, 2022 at 12pm ET, we won’t order you a shirt.
                 <br /><br />We will order the tshirts on April 13, 2022, and we expect to ship them out to you in early May 2022. Supply chains take time, and shipping up to 500 shirts is a ton of shipping labels to assemble.
                 <br /><br />If our mint does not sell out by Mon, Apr 4, 2022, we will do a second snapshot. Those details will be TBD.
@@ -780,7 +766,7 @@ function App() {
               <Accordion.Item eventKey="30" style={{marginBottom:"10px"}}>
                 <Accordion.Header>I bought the NFT, but I want to register a different email address to receive the email. What do I do?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                We haven't launched register.futurenftmints.com yet, but we will update this page and announce in the Discord when it is. Once it's launched, you'll go to register.futurenftmints.com and follow the instructions.
+                Go to <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://register.futurenftmints.com">register.futurenftmints.com</StyledLink> and follow the instructions.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="31" style={{marginBottom:"10px"}}>
