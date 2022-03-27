@@ -522,9 +522,6 @@ function App() {
                 <Row>
                   
                   <Col xs={12} style={{ paddingTop:"25px", textAlign: "center" }}>
-                    { (blockchain.account !== "" && blockchain.smartContract !== null) ? null :
-                      null
-                    }
                     {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                       <>
                         <s.TextTitle
