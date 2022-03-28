@@ -1,19 +1,19 @@
 {
-  "CONTRACT_ADDRESS": "0x27f6Fa9D2a4f447EC5f12BD72112049C866b864d",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/token/0x27f6Fa9D2a4f447EC5f12BD72112049C866b864d",
+  "CONTRACT_ADDRESS": "0x5f66F72a4f87ec3Cd06241400bD2bA867F1233c7",
+  "SCAN_LINK": "https://etherscan.io/token/0x5f66F72a4f87ec3Cd06241400bD2bA867F1233c7",
   "NETWORK": {
-    "NAME": "Rinkeby",
+    "NAME": "Mainnet",
     "SYMBOL": "ETH",
-    "ID": 4
+    "ID": 1
   },
   "NFT_NAME": "Future NFT Mints - Genesis NFT",
   "SYMBOL": "FNFTM0",
   "MAX_SUPPLY": 500,
-  "WEI_COST": 25000000000000,
+  "WEI_COST": 250000000000000000,
   "DISPLAY_COST": 0.0,
-  "GAS_LIMIT": 285000,
+  "GAS_LIMIT": 100000,
   "MARKETPLACE": "OPENSEA",
-  "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/future-nft-mints-genesis-nft",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/future-nft-mints-genesis-nft",
   "SHOW_BACKGROUND": false,
   "OTHER_NFT_LINK": "https://mint.futurenftmints.com"
 }
