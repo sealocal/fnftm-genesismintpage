@@ -566,17 +566,17 @@ function App() {
                     {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                       <>
                         <s.TextTitle
-                          style={{ textAlign: "center", color: "var(--accent-text)" }}
+                          style={{ textAlign: "center", color: "#ffffff" }}
                         >
                           The sale has ended.
                         </s.TextTitle>
                         <s.TextDescription
-                          style={{ textAlign: "center", color: "var(--accent-text)" }}
+                          style={{ textAlign: "center", color: "#ffffff" }}
                         >
                           You can still find {CONFIG.NFT_NAME} on
                         </s.TextDescription>
                         <s.SpacerSmall />
-                        <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                        <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
                           {CONFIG.MARKETPLACE}
                         </StyledLink>
                       </>

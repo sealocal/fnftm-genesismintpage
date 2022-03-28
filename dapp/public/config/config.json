@@ -12,7 +12,7 @@
   "WEI_COST": 25000000000000,
   "DISPLAY_COST": 0.0,
   "GAS_LIMIT": 285000,
-  "MARKETPLACE": "Opensea Test Net",
+  "MARKETPLACE": "OPENSEA",
   "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/future-nft-mints-genesis-nft",
   "SHOW_BACKGROUND": false,
   "OTHER_NFT_LINK": "https://mint.futurenftmints.com"
