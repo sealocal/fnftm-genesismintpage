@@ -187,7 +187,7 @@ function App() {
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit Opensea.io to view it.`
+          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit OpenSea to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
@@ -211,7 +211,7 @@ function App() {
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit Opensea.io to view it.`
+          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit OpenSea to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
@@ -235,7 +235,7 @@ function App() {
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit Opensea.io to view it.`
+          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit OpenSea to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
@@ -457,7 +457,7 @@ function App() {
                 className="d-inline-block align-top"
               />{' '}&nbsp;&nbsp;&nbsp;
             </StyledLink>
-            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
+            <StyledLink target={"_blank"} href="https://opensea.io/collection/future-nft-mints-genesis-nft">
               <img
                 alt=""
                 src="/config/images/opensea.png"
@@ -539,7 +539,7 @@ function App() {
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
+                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Mint not open yet. Allow List opens on Mar 28 @ 12pm ET</Col>
 
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
                   */}
@@ -556,7 +556,7 @@ function App() {
                 </Row>
 
                 <Row style={{ paddingTop:"5px" }}>
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>0.000025 ETH Rinkeby</Col>
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>0.25 ETH</Col>
                   <Col style={{ textAlign: "right", color: "#ffffff" }}>{data.totalSupply} / {CONFIG.MAX_SUPPLY}</Col>
                 </Row>
 
@@ -592,9 +592,9 @@ function App() {
                 </Row>
 
 
-                <Row style={{ paddingTop:"10px" }}>
+                <Row style={{ paddingTop:"20px" }}>
                   <Col>
-                  <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Smart Contract on Etherscan</StyledLink>
+                  <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://etherscan.io/address/0x5f66F72a4f87ec3Cd06241400bD2bA867F1233c7">Smart Contract on Etherscan</StyledLink>
                   </Col>
                 </Row>
                 <Row  style={{ paddingBottom:"25px" }}></Row>
@@ -810,7 +810,7 @@ function App() {
               <Accordion.Item eventKey="27" style={{marginBottom:"10px"}}>
                 <Accordion.Header>How can I buy or sell the FNFTM Genesis NFT after the mint?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                Our NFT will be officially listed on OpenSea. We will have official links to OpenSea on this page, our main website, and in our Discord. We recommend that you only use our official links since OpenSea does a bad job removing fake listings.
+                <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://opensea.io/collection/future-nft-mints-genesis-nft">OpenSea</StyledLink>. We recommend that you only use our official links since OpenSea does a bad job removing fake listings.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="28" style={{marginBottom:"10px"}}>
@@ -897,7 +897,7 @@ function App() {
                 className="d-inline-block align-top"
               />{' '}&nbsp;&nbsp;
             </StyledLink>
-            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
+            <StyledLink target={"_blank"} href="https://opensea.io/collection/future-nft-mints-genesis-nft">
               <img
                 alt=""
                 src="/config/images/opensea.png"
