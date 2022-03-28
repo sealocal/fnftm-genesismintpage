@@ -326,6 +326,18 @@ function App() {
     getData();
   }, [blockchain.account]);
 
+  const mintPhaseMessage = () => {
+    if (data.isPublicMintEnabled) {
+      return <Col style={{ textAlign: "left", color: "#ffffff" }}>Public (Wallet Limit 5)</Col>
+    } else if (data.isPresaleMintEnabled) {
+      return <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale (Wallet Limit 2)</Col>
+    } else if (data.isAllowListMintEnabled) {
+      return <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List (Wallet Limit 2)</Col>
+    } else {
+      return <Col style={{ textAlign: "left", color: "#ffffff" }}>Mint not open yet. Allow List opens on Mar 28 @ 12pm ET</Col>
+    }
+  }
+
   const connectWalletContainer = () => {
     return <s.Container ai={"center"} jc={"center"}>
       {blockchain.errorMsg !== "" ? (
@@ -539,15 +551,7 @@ function App() {
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                  {/*} 
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Mint not open yet. Allow List opens on Mar 28 @ 12pm ET</Col>
-                  */}
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List (Wallet Limit 2)</Col>
-                  
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale (Wallet Limit 2)</Col>
-                  */}
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public (Wallet Limit 5)</Col>
-                  */}
+                  {mintPhaseMessage()}
                 </Row>
 
                 <Row style={{ paddingTop:"25px" }}>
@@ -608,7 +612,7 @@ function App() {
           <Col md={1}></Col>
         </Row>
 
-        
+
         <Row>
           <Col md={3}></Col>
           <Col xs={12} md={7}>
