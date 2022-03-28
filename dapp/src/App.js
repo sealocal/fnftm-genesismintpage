@@ -302,10 +302,10 @@ function App() {
       maxRemainingMint = 5 - balance
     } else if (allowListAllocation) {
       currentPhase = 'Allow List'
-      maxRemainingMint = allowListAllocation
+      maxRemainingMint = 2 - balance
     } else if (presaleListAllocation) {
       currentPhase = 'Presale'
-      maxRemainingMint = presaleListAllocation
+      maxRemainingMint = 2 - balance
     } else {
       maxRemainingMint = 0
       currentPhase = 'Allow List'
