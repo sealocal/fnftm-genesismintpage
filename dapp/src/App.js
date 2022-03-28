@@ -539,10 +539,11 @@ function App() {
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Mint not open yet. Allow List opens on Mar 28 @ 12pm ET</Col>
-
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  {/*} 
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Mint not open yet. Allow List opens on Mar 28 @ 12pm ET</Col>
                   */}
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
                   */}
                   {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
@@ -607,31 +608,14 @@ function App() {
           <Col md={1}></Col>
         </Row>
 
-        <Row style={{ paddingTop: "100px" }}>
-          <Col md={3}></Col>
-          <Col xs={12} md={6}>
-          <Row style={{ textAlign:"center"}}>
-              <Col>
-                <Row style={{ color: "#FAC921", fontSize:"4em", textAlign:"center"}}>
-                  <Countdown date={countdownDate} renderer={countdownRenderer} />
-                </Row>
-                <Row style={{ color: "#FAC921", fontSize:"1.25em", textAlign:"center"}}>
-                  <Col xs={3} md={3}>Days</Col>
-                  <Col xs={3} md={3}>Hours</Col>
-                  <Col xs={3} md={3}>Minutes</Col>
-                  <Col xs={3} md={3}>Seconds</Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        
         <Row>
           <Col md={3}></Col>
           <Col xs={12} md={7}>
             <Row style={{ paddingTop: "80px", color: "#ffffff", fontSize:"1.5em", lineHeight:"1.25em" }}>
               <Col xs={4}>ALLOW LIST</Col>
               <Col>
-                Mon, March 28 at 12pm ET
+                Mon, March 28 at 12pm ET (Open Now)
                 <br /><StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://docs.google.com/spreadsheets/d/15YhXZI6W9v6sS8OT32fAsikhgck2AzMlJ3fK1KeOSoM/edit#gid=0">Check if you're on the Allow List</StyledLink>
               </Col>
             </Row>
