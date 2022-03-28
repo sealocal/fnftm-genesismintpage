@@ -542,11 +542,11 @@ function App() {
                   {/*} 
                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Mint not open yet. Allow List opens on Mar 28 @ 12pm ET</Col>
                   */}
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List (Wallet Limit 2)</Col>
                   
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale (Wallet Limit 2)</Col>
                   */}
-                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public (Wallet Limit 5)</Col>
                   */}
                 </Row>
 
