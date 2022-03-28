@@ -112,7 +112,7 @@ function App() {
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
-  const [mintAmount, setMintAmount] = useState(1);
+  const [mintAmount, setMintAmount] = useState(0);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
     SCAN_LINK: "",
@@ -245,18 +245,32 @@ function App() {
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
-      newMintAmount = 1;
+      newMintAmount = 0;
     }
     setMintAmount(newMintAmount);
   };
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 2) {
-      newMintAmount = 2;
+    if (newMintAmount > maxRemainingPerAddressDuringMint()) {
+      newMintAmount = maxRemainingPerAddressDuringMint();
     }
     setMintAmount(newMintAmount);
   };
+
+  const maxRemainingPerAddressDuringMint = () => {
+    const presaleLimit = 2,
+          publicLimit = 5;
+
+    let limit = 0;
+    if (data.isPublicMintEnabled) {
+      limit = publicLimit
+    } else if (data.isPresaleMintEnabled || data.isAllowListMintEnabled) {
+      limit = presaleLimit
+    }
+
+    return data.balance >= limit ? 0 : (limit - data.balance);
+  }
 
   const getData = () => {
     if (blockchain.account !== "" && blockchain.smartContract !== null) {
@@ -275,13 +289,139 @@ function App() {
     SET_CONFIG(config);
   };
 
+  const getFeedback = async () => {
+    let currentPhase,
+        maxRemainingMint
+
+    let balance = parseInt(data.balance),
+        allowListAllocation = parseInt(data.allowListAllocation),
+        presaleListAllocation = parseInt(data.presaleListAllocation)
+
+    if (data.isPublicMintEnabled) {
+      currentPhase = 'Public'
+      maxRemainingMint = 5 - balance
+    } else if (allowListAllocation) {
+      currentPhase = 'Allow List'
+      maxRemainingMint = allowListAllocation
+    } else if (presaleListAllocation) {
+      currentPhase = 'Presale'
+      maxRemainingMint = presaleListAllocation
+    } else {
+      maxRemainingMint = 0
+      currentPhase = 'Allow List'
+    }
+
+    setFeedback(`${blockchain.account} can mint ${maxRemainingMint} during ${currentPhase} phase`)
+  };
+
   useEffect(() => {
     getConfig();
   }, []);
 
   useEffect(() => {
+    getFeedback();
+  }, [blockchain.account, data.allowListAllocation, data.presaleListAllocation]);
+
+  useEffect(() => {
     getData();
   }, [blockchain.account]);
+
+  const connectWalletContainer = () => {
+    return <s.Container ai={"center"} jc={"center"}>
+      {blockchain.errorMsg !== "" ? (
+        <>
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "#ffffff",
+            }}
+          >
+            {blockchain.errorMsg}
+          </s.TextDescription>
+        </>
+      ) : null}
+      <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
+  onClick={(e) => {
+          e.preventDefault();
+          dispatch(connect());
+          getData();
+        } }
+      >
+        Connect Wallet
+      </Button>
+
+    </s.Container>
+  }
+
+  const shouldRenderConnectedWalletMintUI = () => {
+    return data.isAllowListMintEnabled && parseInt(data.allowListAllocation) && parseInt(data.allowListAllocation) >= 0 ||
+      data.isPresaleMintEnabled && parseInt(data.presaleListAllocation) && parseInt(data.presaleListAllocation) >= 0 ||
+      data.isPublicMintEnabled
+  }
+
+  const shouldRenderFeedbackMessage = () => {
+    return (blockchain.account!== "" && blockchain.smartContract !== null)
+  }
+
+  const feedbackMessage = () => {
+    return shouldRenderFeedbackMessage() ? <Row
+      style={{
+        color: "#ffffff",
+      }}
+    >
+      <Col style={{textAlign: "center" }}>{feedback}</Col>
+    </Row> : null
+  }
+
+  const connectedWalletMintUI = () => {
+    return shouldRenderConnectedWalletMintUI() ? <>
+      <s.SpacerMedium />
+      <s.Container ai={"center"} jc={"center"} fd={"row"}>
+        <StyledRoundButton
+          style={{ lineHeight: 0.4 }}
+          disabled={claimingNft ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            decrementMintAmount();
+          } }
+        >
+          -
+        </StyledRoundButton>
+        <s.SpacerMedium />
+        <s.TextDescription
+          style={{
+            textAlign: "center",
+            color: "#ffffff",
+          }}
+        >
+          {mintAmount}
+        </s.TextDescription>
+        <s.SpacerMedium />
+        <StyledRoundButton
+          disabled={claimingNft ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            incrementMintAmount();
+          } }
+        >
+          +
+        </StyledRoundButton>
+      </s.Container>
+      <s.SpacerSmall />
+      <s.Container ai={"center"} jc={"center"} fd={"row"}>
+      <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
+          disabled={claimingNft ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            claimNFTs();
+            getData();
+          } }
+        >
+          {claimingNft ? "BUSY" : "BUY"}
+        </Button>
+      </s.Container>
+    </> : null
+  }
 
   return (
     <>
@@ -290,46 +430,44 @@ function App() {
           <Navbar.Brand href="#home">
             <img
               alt=""
-              src="/config/images/logo.png"              
+              src="/config/images/logo.png"
               height="30"
               className="d-inline-block align-top"
-            />{' '}          
+            />{' '}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">                           
+            <Nav className="me-auto">
             </Nav>
             <Nav>
             <StyledLink target={"_blank"} href="https://twitter.com/futurenftmints">
               <img
                 alt=""
-                src="/config/images/twitter.png"              
+                src="/config/images/twitter.png"
                 height="30"
-                className="d-inline-block align-top"  
-                margin="10"            
+                className="d-inline-block align-top"
+                margin="10"
               />{' '}&nbsp;&nbsp;
             </StyledLink>
             <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
               <img
                 alt=""
-                src="/config/images/discord.png"              
+                src="/config/images/discord.png"
                 height="30"
-                className="d-inline-block align-top"                           
+                className="d-inline-block align-top"
               />{' '}&nbsp;&nbsp;&nbsp;
-            </StyledLink> 
-            {/* 
+            </StyledLink>
             <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
               <img
                 alt=""
-                src="/config/images/opensea.png"              
+                src="/config/images/opensea.png"
                 height="30"
-                className="d-inline-block align-top"                           
+                className="d-inline-block align-top"
               />{' '}&nbsp;&nbsp;&nbsp;
-            </StyledLink> 
-            */} 
+            </StyledLink>
 
             {/*
-            { (blockchain.account !== "" && blockchain.smartContract !== null) ?
+            { (blockchain.account === "" ||  blockchain.smartContract === null) ?
               <Button style={{ backgroundColor: "#F83700", border: "#F83700" }}
                 onClick={(e) => {
                   e.preventDefault();
@@ -339,8 +477,9 @@ function App() {
               >
                 Connect Wallet
               </Button> : null
-            }     
-            */} 
+            }
+          */}
+
 
             </Nav>
           </Navbar.Collapse>
@@ -357,35 +496,35 @@ function App() {
             <Row style={{ paddingTop: "20px", color: "#ffffff", fontSize:"3em", lineHeight: "1em" }}>
               <Col>Lifetime access to the most in-depth NFT analysis.</Col>
             </Row>
-            <Row style={{ paddingTop: "20px" }}>                                      
+            <Row style={{ paddingTop: "20px" }}>
               <Row style={{ paddingTop: "20px", color: "#ffffff", fontSize:"1.75em" }}>
-                <Col>IMMEDIATE UTILITY & PERKS</Col>                
-              </Row>              
+                <Col>IMMEDIATE UTILITY & PERKS</Col>
+              </Row>
               <Row style={{ paddingTop:"25px", fontSize:"1.25em" }}>
                 <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}><StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Daily Future NFT Mints Newsletter</StyledLink> ($550/year value)</Col>
-              </Row>       
+              </Row>
               <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
                 <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>Lifetime access to all research and analyses</Col>
-              </Row>              
+              </Row>
               <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
                 <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>Private Discord</Col>
-              </Row>  
+              </Row>
               <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
                 <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>1x Giveaway Spot per NFT. Stackable.</Col>
-              </Row> 
+              </Row>
               <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
                 <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>Early Supporter T-shirt</Col>
-              </Row>  
+              </Row>
               <Row style={{ paddingTop:"15px", fontSize:"1.25em" }}>
                 <Col xs={1} style={{ textAlign: "left" }}><img alt="checkmark" src="/config/images/check-box.png" height="20" className="d-inline-block align-top"/></Col>
                 <Col style={{ color: "#ffffff" }}>And so much more...</Col>
-              </Row>                     
-            </Row>                        
+              </Row>
+            </Row>
           </Col>
           <Col md={4}>
             <Row style={{ paddingTop:"50px", textAlign: "center" }}>
@@ -400,144 +539,72 @@ function App() {
 
                 <Row style={{ paddingTop:"25px" }}>
                   <Col xs={3} style={{ textAlign: "left", color: "#ffffff" }}>PHASE</Col>
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
-                </Row> 
+                   <Col style={{ textAlign: "left", color: "#ffffff" }}>Pre-Mint. Allow List opens on Mar 28 @ 12pm ET</Col>
 
-                <Row>
-                  <Col>
-                    <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
-                  </Col>                  
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Allow List. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Presale. Wallet Limit 2. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
+                  {/* <Col style={{ textAlign: "left", color: "#ffffff" }}>Public. Wallet Limit 5. If you try to mint more, you'll get an error & lose gas.</Col>
+                  */}
                 </Row>
 
-                <Row style={{ paddingTop:"5px" }}>                  
-                  <Col style={{ textAlign: "left", color: "#ffffff" }}>0.25 ETH</Col>
+                <Row style={{ paddingTop:"25px" }}>
+                  <Col>
+                    <ProgressBar now={data.totalSupply / CONFIG.MAX_SUPPLY * 100} />
+                  </Col>
+                </Row>
+
+                <Row style={{ paddingTop:"5px" }}>
+                  <Col style={{ textAlign: "left", color: "#ffffff" }}>0.000025 ETH Rinkeby</Col>
                   <Col style={{ textAlign: "right", color: "#ffffff" }}>{data.totalSupply} / {CONFIG.MAX_SUPPLY}</Col>
                 </Row>
 
-                <Row  style={{ paddingBottom:"25px" }}>
-                  
+                <Row>
+
                   <Col xs={12} style={{ paddingTop:"25px", textAlign: "center" }}>
-                    { (blockchain.account !== "" && blockchain.smartContract !== null) ? null :
-                      null
-                    }
                     {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
                       <>
                         <s.TextTitle
-                          style={{ textAlign: "center", color: "var(--accent-text)" }}
+                          style={{ textAlign: "center", color: "#ffffff" }}
                         >
                           The sale has ended.
                         </s.TextTitle>
                         <s.TextDescription
-                          style={{ textAlign: "center", color: "var(--accent-text)" }}
+                          style={{ textAlign: "center", color: "#ffffff" }}
                         >
                           You can still find {CONFIG.NFT_NAME} on
                         </s.TextDescription>
                         <s.SpacerSmall />
-                        <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                        <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
                           {CONFIG.MARKETPLACE}
                         </StyledLink>
                       </>
                     ) : (
                       <>
-                        
-                        {blockchain.account === "" ||
-                          blockchain.smartContract === null ? (
-                          <s.Container ai={"center"} jc={"center"}>                                                        
-                            {blockchain.errorMsg !== "" ? (
-                              <>
-                                <s.TextDescription
-                                  style={{
-                                    textAlign: "center",
-                                    color: "#ffffff",
-                                  }}
-                                >
-                                  {blockchain.errorMsg}
-                                </s.TextDescription>
-                              </>
-                            ) : null}
-                            <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
-                        onClick={(e) => {
-                                e.preventDefault();
-                                dispatch(connect());
-                                getData();
-                              } }
-                            >
-                              Connect Wallet
-                            </Button>
-                            
-                          </s.Container>
-                        ) : (
-                          <>
-                            <Row
-                              style={{                                
-                                color: "#ffffff",
-                              }}
-                            >
-                              <Col style={{textAlign: "center" }}>{feedback}</Col>
-                              
-                            </Row>
-                            <s.SpacerMedium />
-                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                              <StyledRoundButton
-                                style={{ lineHeight: 0.4 }}
-                                disabled={claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  decrementMintAmount();
-                                } }
-                              >
-                                -
-                              </StyledRoundButton>
-                              <s.SpacerMedium />
-                              <s.TextDescription
-                                style={{
-                                  textAlign: "center",
-                                  color: "var(--accent-text)",
-                                }}
-                              >
-                                {mintAmount}
-                              </s.TextDescription>
-                              <s.SpacerMedium />
-                              <StyledRoundButton
-                                disabled={claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  incrementMintAmount();
-                                } }
-                              >
-                                +
-                              </StyledRoundButton>
-                            </s.Container>
-                            <s.SpacerSmall />
-                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                            <Button style={{ backgroundColor: "#F83700", border: "#F83700", width:"100%" }}
-                                disabled={claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  claimNFTs();
-                                  getData();
-                                } }
-                              >
-                                {claimingNft ? "BUSY" : "BUY"}
-                              </Button>
-                            </s.Container>
-                          </>
-                        )}
+                        {feedbackMessage()}
+                        { blockchain.account === "" || blockchain.smartContract === null ?
+                          connectWalletContainer() : connectedWalletMintUI()
+                        }
                       </>
                     )}
                   </Col>
                 </Row>
 
 
+                <Row style={{ paddingTop:"10px" }}>
+                  <Col>
+                  <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com">Smart Contract on Etherscan</StyledLink>
+                  </Col>
+                </Row>
+                <Row  style={{ paddingBottom:"25px" }}></Row>
 
-                <Row  style={{ paddingBottom:"50px" }}></Row>
-              
-              </Col> 
+              </Col>
 
             </Row>
-            
+
           </Col>
-          <Col md={1}></Col>          
+          <Col md={1}></Col>
         </Row>
 
         <Row style={{ paddingTop: "100px" }}>
@@ -546,13 +613,13 @@ function App() {
           <Row style={{ textAlign:"center"}}>
               <Col>
                 <Row style={{ color: "#FAC921", fontSize:"4em", textAlign:"center"}}>
-                  <Countdown date={countdownDate} renderer={countdownRenderer} />                    
+                  <Countdown date={countdownDate} renderer={countdownRenderer} />
                 </Row>
                 <Row style={{ color: "#FAC921", fontSize:"1.25em", textAlign:"center"}}>
                   <Col xs={3} md={3}>Days</Col>
                   <Col xs={3} md={3}>Hours</Col>
                   <Col xs={3} md={3}>Minutes</Col>
-                  <Col xs={3} md={3}>Seconds</Col>                
+                  <Col xs={3} md={3}>Seconds</Col>
                 </Row>
               </Col>
             </Row>
@@ -589,7 +656,7 @@ function App() {
             </Row>
           </Col>
         </Row>
-        
+
         <Row style={{ paddingTop: "100px" }}>
          <Col style={{ textAlign:"center", fontSize: "2em", color: " #ffffff" }}>
          Lifetime access to Future NFT Mints' analysis and more
@@ -600,10 +667,10 @@ function App() {
           <Col md={5} style={{textAlign:"center", paddingBottom:"20px"}}>
               <img
                 alt=""
-                src="/config/images/2022-03-18-FutureNFTMints.png"              
+                src="/config/images/2022-03-18-FutureNFTMints.png"
                 height="500"
-                className="d-inline-block align-top"  
-                margin="10"            
+                className="d-inline-block align-top"
+                margin="10"
               />
           </Col>
           <Col md={5} style={{ fontSize: "1.25em", color: " #ffffff", lineHeight: "1.25em" }}>
@@ -613,36 +680,22 @@ function App() {
           </Col>
         </Row>
 
-        <Row style={{ paddingTop: "75px" }}>
 
-          <Col md={2}></Col>            
-          <Col md={8} xs={12} style={{ textAlign:"center", fontSize: "3em", color: " #ffffff" }}>
-            Join our Discord and enter to win an Allow List spot. All entries are automatically added to our Presale.
-            <br /><br />
-            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
-            <Button size="lg" style={{ backgroundColor: "#F83700", border: "#F83700", padding:"20px" }}>
-                Join our Discord
-              </Button>
-            </StyledLink>             
-              
-          </Col>
-          <Col md={2}></Col>            
-        </Row>
 
         <Row style={{ paddingTop: "75px" }}>
 
-          <Col md={3}></Col>            
+          <Col md={3}></Col>
           <Col md={6} xs={12} style={{ textAlign:"center", fontSize: "2em", color: " #ffffff" }}>
             Frequently Asked Questions
           </Col>
-          <Col md={3}></Col>            
+          <Col md={3}></Col>
         </Row>
 
         <Row style={{ paddingTop: "20px", paddingBottom: "100px" }}>
 
-          <Col md={2}></Col>            
+          <Col md={2}></Col>
           <Col md={8} xs={12} style={{ textAlign:"left", lineHeight: "1.25em" }}>
-            <Accordion alwaysOpen>                                                                    
+            <Accordion alwaysOpen>
               <Accordion.Item eventKey="19" style={{marginBottom:"10px"}}>
                 <Accordion.Header>How much is this mint and how many Genesis NFTs will there be?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -661,7 +714,7 @@ function App() {
                 <Accordion.Body style={{color:"#fff"}}>
                 ‘NFT’ is an acronym that stands for Non-Fungible Token. An NFT is a digital record that cannot be taken away and is publicly viewable. The technology that makes this possible is the blockchain and smart contracts. If you’re looking to learn more about NFTs, we have a <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://futurenftmints.com/web3-resources.html">resources page</StyledLink> with links to some of the best minds in the space who explain everything in more detail.
                 </Accordion.Body>
-              </Accordion.Item>              
+              </Accordion.Item>
               <Accordion.Item eventKey="9" style={{marginBottom:"10px"}}>
                 <Accordion.Header>Why did you choose to mint your NFT on Ethereum?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -717,7 +770,7 @@ function App() {
               <Accordion.Item eventKey="17" style={{marginBottom:"10px"}}>
                 <Accordion.Header>How do I get on the Presale?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                Submit your wallet and info to one of the 3 raffles we are running with Club CPG, Floor, or in our Discord, and you are automatically on the Presale.                
+                Submit your wallet and info to one of the 3 raffles we are running with Club CPG, Floor, or in our Discord, and you are automatically on the Presale.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="18" style={{marginBottom:"10px"}}>
@@ -726,7 +779,7 @@ function App() {
                 The Genesis NFT’s primary benefit is that you receive our daily fresh mints newsletter, which is sent via email. It will speed up our ability to onboard NFT owners if we know your wallet and email ahead of time. Otherwise, you will have to take an extra step after you mint in order to get the bulk of your benefits. We will also send you emails before the key mint dates so that you can make sure to be ready.
                 <br /><br />We will not send any additional communications to these emails, so if you want to be on our free newsletter, you’ll have to signup for that separately.
                 </Accordion.Body>
-              </Accordion.Item>              
+              </Accordion.Item>
               <Accordion.Item eventKey="22" style={{marginBottom:"10px"}}>
                 <Accordion.Header>How much money will this mint generate?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -739,7 +792,7 @@ function App() {
                 All the money earned from the Genesis Mint will be accounted as revenue for Future NFT Mints, Inc, and it will be used to fund our business. Since these funds are accounted as revenue, Future NFT Mints, Inc may also be required to use some of the funds to pay for taxes.
                 </Accordion.Body>
               </Accordion.Item>
-              
+
               <Accordion.Item eventKey="25" style={{marginBottom:"10px"}}>
                 <Accordion.Header>What is the roadmap?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -764,16 +817,16 @@ function App() {
                 <Accordion.Header>I own the NFT, how will you send me my tshirt?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
                 We will be taking a snapshot on Mon, Apr 4, 2022 at 12pm ET, and each NFT entitles the owner to 1 T-shirt. If you own 5 NFTs, you get 5 T-shirts.
-                <br /><br />To make sure that we have your shipping info, please go to register.futurenftmints.com and follow the instructions. We will be sharing a form in our Discord and via email for all snapshot wallets.
+                <br /><br />To make sure that we have your shipping info, please go to <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://register.futurenftmints.com">register.futurenftmints.com</StyledLink> and follow the instructions.
                 <br /><br />If we don’t have your shipping info by April 11, 2022 at 12pm ET, we won’t order you a shirt.
                 <br /><br />We will order the tshirts on April 13, 2022, and we expect to ship them out to you in early May 2022. Supply chains take time, and shipping up to 500 shirts is a ton of shipping labels to assemble.
                 <br /><br />If our mint does not sell out by Mon, Apr 4, 2022, we will do a second snapshot. Those details will be TBD.
                 </Accordion.Body>
-              </Accordion.Item>              
+              </Accordion.Item>
               <Accordion.Item eventKey="30" style={{marginBottom:"10px"}}>
                 <Accordion.Header>I bought the NFT, but I want to register a different email address to receive the email. What do I do?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
-                We haven't launched register.futurenftmints.com yet, but we will update this page and announce in the Discord when it is. Once it's launched, you'll go to register.futurenftmints.com and follow the instructions.
+                Go to <StyledLink style={{ color:"#fff", textDecoration:"underline"}} target={"_blank"} href="https://register.futurenftmints.com">register.futurenftmints.com</StyledLink> and follow the instructions.
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="31" style={{marginBottom:"10px"}}>
@@ -781,7 +834,7 @@ function App() {
                 <Accordion.Body style={{color:"#fff"}}>
                 We may not build as fast, but we will continue to build. Elliot, the founder, has a 12-month runway secured in the event the mint doesn’t sell out quickly, and this NFT mint page will stay live the entire time. If, after 12 months, this business doesn’t generate enough value to sell out this NFT, Elliot will figure out the next step. But like any entrepreneur, he will likely iterate, iterate, and iterate well before that happens. And if this concept doesn’t hit the spot, he can always pivot. But this is a scenario that is 12 months out, and as Humphrey Bogart from Casablanca said, “I never make plans that far ahead.”
                 </Accordion.Body>
-              </Accordion.Item>  
+              </Accordion.Item>
               <Accordion.Item eventKey="0" style={{marginBottom:"10px"}}>
                 <Accordion.Header>Do Future NFT Mints Genesis NFT owners own part of Future NFT Mints?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
@@ -808,19 +861,19 @@ function App() {
                 <Accordion.Body style={{color:"#fff"}}>
                 No.
                 </Accordion.Body>
-              </Accordion.Item>   
+              </Accordion.Item>
               <Accordion.Item eventKey="5" style={{marginBottom:"10px"}}>
                 <Accordion.Header>If I buy a FNFTM Genesis NFT, do I get to vote on how FNFTM operates?</Accordion.Header>
                 <Accordion.Body style={{color:"#fff"}}>
                 No. We may ask you for input, the same way any startup asks their customers what they would like so that we build a product that has good product market fit. But we will not ask NFT owners (simply because they own our NFT) for their opinion on how we operate. Many of our most treasured advisors may own our NFT, but we will seek their advice independent of their NFT ownership.
                 </Accordion.Body>
-              </Accordion.Item>                     
+              </Accordion.Item>
             </Accordion>
           </Col>
-          <Col md={2}></Col>            
+          <Col md={2}></Col>
         </Row>
-        
-        
+
+
       </Container>
       <Card.Footer style={{backgroundColor:"#000000", width:"100%"}}>
         <Row>
@@ -829,20 +882,29 @@ function App() {
             <StyledLink target={"_blank"} href="https://twitter.com/futurenftmints">
               <img
                 alt=""
-                src="/config/images/twitter.png"              
+                src="/config/images/twitter.png"
                 height="20"
-                className="d-inline-block align-top"  
-                margin="10"            
+                className="d-inline-block align-top"
+                margin="10"
               />{' '}&nbsp;&nbsp;
             </StyledLink>
             <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
               <img
                 alt=""
-                src="/config/images/discord.png"              
+                src="/config/images/discord.png"
                 height="20"
-                className="d-inline-block align-top"                           
-              />{' '}
-            </StyledLink> 
+                margin="10"
+                className="d-inline-block align-top"
+              />{' '}&nbsp;&nbsp;
+            </StyledLink>
+            <StyledLink target={"_blank"} href="https://discord.gg/futurenftmints">
+              <img
+                alt=""
+                src="/config/images/opensea.png"
+                height="20"
+                className="d-inline-block align-top"
+              />{' '}&nbsp;&nbsp;&nbsp;
+            </StyledLink>
           </Col>
         </Row>
       </Card.Footer>
